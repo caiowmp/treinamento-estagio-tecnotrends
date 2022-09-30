@@ -9,14 +9,14 @@ body {
     display: inline-block;
     padding: 40px;
     font-size: 60px;
-    margin: 5px;
+    margin-bottom: 5px;
     cursor: pointer;
     color: #eee;
 }
 
 .jogador, .vencedor {
-    font-size: 30px;
-    margin-top: 10px;
+    font-size: 150%;
+    margin-top: 5px;
 }
 
 button {
@@ -25,4 +25,10 @@ button {
     height: 30px;
     background: #eee;
     cursor: pointer;    
+}
+
+h1 {
+    margin-bottom: 5px;
+    margin-top: 5px;
+    font-size: 150dpi;
 }
