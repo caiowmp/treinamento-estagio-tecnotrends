@@ -43,7 +43,9 @@ class Char {
         this.x = x;
         this.y = y;
         this.table = field;
-        this.setPosition(x,y)
+        if (!this.setPosition(x,y)) {
+            throw Error();
+        }
     }
 
     setPosition (x, y) {
@@ -53,7 +55,9 @@ class Char {
             this.y = y;
             this.table.field[this.y][this.x] = this.face;
             this.table.drawField();
+            return true;
         }
+        return false;
     }
 
     up () {
@@ -88,9 +92,14 @@ class Player extends Char {
     }
 }
 
+function startField () {
+    field = new Field(3,4,'#myTable');
+    try {
+        player = new Player (field);
+    } catch (e) {
+        console.log ('starting field again');
+        startField();
+    }
+}
 
-
-
-
-field = new Field(3,4,'#myTable');
-player = new Player (field);
+startField();
