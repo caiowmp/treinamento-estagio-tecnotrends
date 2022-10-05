@@ -113,7 +113,12 @@ class Npc extends Char {
 }
 
 function startField () {
-    field = new Field(3,4,'#myTable');
+    var cols = document.querySelector('#cols').value || 3,
+        rows = document.querySelector('#rows').value || 3;
+
+    document.querySelector('button').disabled = true;
+
+    field = new Field(cols, rows, '#myTable');
     try {
         player = new Player (field);
         npc = new Npc (field);
@@ -122,5 +127,3 @@ function startField () {
         startField();
     }
 }
-
-startField();
