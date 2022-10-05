@@ -92,10 +92,31 @@ class Player extends Char {
     }
 }
 
+class Npc extends Char {
+    constructor (field) {
+        var x = Math.trunc(Math.random()*field.cols),
+            y = Math.trunc(Math.random()*field.rows);
+        
+        super (field, x, y, 'X_X');
+        setInterval(this.walk.bind(this), 1000);
+    }
+
+    walk () {
+        var direction = Math.trunc(Math.random() * 4) + 1;
+        switch (direction) {
+            case 1: this.up(); break;
+            case 2: this.down(); break;
+            case 3: this.left(); break;
+            case 4: this.right(); break; 
+        } 
+    }
+}
+
 function startField () {
     field = new Field(3,4,'#myTable');
     try {
         player = new Player (field);
+        npc = new Npc (field);
     } catch (e) {
         console.log ('starting field again');
         startField();
