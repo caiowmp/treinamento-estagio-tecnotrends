@@ -127,3 +127,19 @@ function startField () {
         startField();
     }
 }
+
+window.addEventListener('keyup', function (event) {
+    if (player) {
+        const a = 65,
+            s = 83,
+            d = 68,
+            w = 87;
+
+        switch (event.keyCode) {
+            case a: player.left(); break;
+            case s: player.down(); break;
+            case d: player.right(); break;
+            case w: player.up(); break;
+        }
+    }
+})
