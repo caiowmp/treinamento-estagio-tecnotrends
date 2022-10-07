@@ -17,4 +17,4 @@
         
         return this;
     }
-})(JQuery)
+})(jQuery)
