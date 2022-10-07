@@ -16,7 +16,7 @@ function request(url, callback){
 
 
 var PokeService = {
-	url: '//dev.treinaweb.com.br/pokeapi/',
+	url: 'https://dev.treinaweb.com.br/pokeapi/',
 	list: [],
 	listAll: function(callback){
 		if(this.list.length){
