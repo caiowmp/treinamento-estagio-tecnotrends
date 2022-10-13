@@ -1,0 +1,15 @@
+C:\Users\55719\Documents\Trends\C# Basico\14-Exercicio\14-Exercicio\bin\Debug\net6.0\14-Exercicio.exe
+C:\Users\55719\Documents\Trends\C# Basico\14-Exercicio\14-Exercicio\bin\Debug\net6.0\14-Exercicio.deps.json
+C:\Users\55719\Documents\Trends\C# Basico\14-Exercicio\14-Exercicio\bin\Debug\net6.0\14-Exercicio.runtimeconfig.json
+C:\Users\55719\Documents\Trends\C# Basico\14-Exercicio\14-Exercicio\bin\Debug\net6.0\14-Exercicio.dll
+C:\Users\55719\Documents\Trends\C# Basico\14-Exercicio\14-Exercicio\bin\Debug\net6.0\14-Exercicio.pdb
+C:\Users\55719\Documents\Trends\C# Basico\14-Exercicio\14-Exercicio\obj\Debug\net6.0\14-Exercicio.csproj.AssemblyReference.cache
+C:\Users\55719\Documents\Trends\C# Basico\14-Exercicio\14-Exercicio\obj\Debug\net6.0\14-Exercicio.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\55719\Documents\Trends\C# Basico\14-Exercicio\14-Exercicio\obj\Debug\net6.0\14-Exercicio.AssemblyInfoInputs.cache
+C:\Users\55719\Documents\Trends\C# Basico\14-Exercicio\14-Exercicio\obj\Debug\net6.0\14-Exercicio.AssemblyInfo.cs
+C:\Users\55719\Documents\Trends\C# Basico\14-Exercicio\14-Exercicio\obj\Debug\net6.0\14-Exercicio.csproj.CoreCompileInputs.cache
+C:\Users\55719\Documents\Trends\C# Basico\14-Exercicio\14-Exercicio\obj\Debug\net6.0\14-Exercicio.dll
+C:\Users\55719\Documents\Trends\C# Basico\14-Exercicio\14-Exercicio\obj\Debug\net6.0\refint\14-Exercicio.dll
+C:\Users\55719\Documents\Trends\C# Basico\14-Exercicio\14-Exercicio\obj\Debug\net6.0\14-Exercicio.pdb
+C:\Users\55719\Documents\Trends\C# Basico\14-Exercicio\14-Exercicio\obj\Debug\net6.0\14-Exercicio.genruntimeconfig.cache
+C:\Users\55719\Documents\Trends\C# Basico\14-Exercicio\14-Exercicio\obj\Debug\net6.0\ref\14-Exercicio.dll
