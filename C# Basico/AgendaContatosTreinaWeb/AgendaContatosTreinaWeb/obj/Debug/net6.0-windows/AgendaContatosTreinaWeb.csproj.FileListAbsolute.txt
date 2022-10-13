@@ -1,0 +1,17 @@
+C:\Users\55719\Documents\Trends\C# Basico\AgendaContatosTreinaWeb\AgendaContatosTreinaWeb\bin\Debug\net6.0-windows\AgendaContatosTreinaWeb.exe
+C:\Users\55719\Documents\Trends\C# Basico\AgendaContatosTreinaWeb\AgendaContatosTreinaWeb\bin\Debug\net6.0-windows\AgendaContatosTreinaWeb.deps.json
+C:\Users\55719\Documents\Trends\C# Basico\AgendaContatosTreinaWeb\AgendaContatosTreinaWeb\bin\Debug\net6.0-windows\AgendaContatosTreinaWeb.runtimeconfig.json
+C:\Users\55719\Documents\Trends\C# Basico\AgendaContatosTreinaWeb\AgendaContatosTreinaWeb\bin\Debug\net6.0-windows\AgendaContatosTreinaWeb.dll
+C:\Users\55719\Documents\Trends\C# Basico\AgendaContatosTreinaWeb\AgendaContatosTreinaWeb\bin\Debug\net6.0-windows\AgendaContatosTreinaWeb.pdb
+C:\Users\55719\Documents\Trends\C# Basico\AgendaContatosTreinaWeb\AgendaContatosTreinaWeb\obj\Debug\net6.0-windows\AgendaContatosTreinaWeb.csproj.AssemblyReference.cache
+C:\Users\55719\Documents\Trends\C# Basico\AgendaContatosTreinaWeb\AgendaContatosTreinaWeb\obj\Debug\net6.0-windows\AgendaContatosTreinaWeb.frmAgendaContatos.resources
+C:\Users\55719\Documents\Trends\C# Basico\AgendaContatosTreinaWeb\AgendaContatosTreinaWeb\obj\Debug\net6.0-windows\AgendaContatosTreinaWeb.csproj.GenerateResource.cache
+C:\Users\55719\Documents\Trends\C# Basico\AgendaContatosTreinaWeb\AgendaContatosTreinaWeb\obj\Debug\net6.0-windows\AgendaContatosTreinaWeb.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\55719\Documents\Trends\C# Basico\AgendaContatosTreinaWeb\AgendaContatosTreinaWeb\obj\Debug\net6.0-windows\AgendaContatosTreinaWeb.AssemblyInfoInputs.cache
+C:\Users\55719\Documents\Trends\C# Basico\AgendaContatosTreinaWeb\AgendaContatosTreinaWeb\obj\Debug\net6.0-windows\AgendaContatosTreinaWeb.AssemblyInfo.cs
+C:\Users\55719\Documents\Trends\C# Basico\AgendaContatosTreinaWeb\AgendaContatosTreinaWeb\obj\Debug\net6.0-windows\AgendaContatosTreinaWeb.csproj.CoreCompileInputs.cache
+C:\Users\55719\Documents\Trends\C# Basico\AgendaContatosTreinaWeb\AgendaContatosTreinaWeb\obj\Debug\net6.0-windows\AgendaContatosTreinaWeb.dll
+C:\Users\55719\Documents\Trends\C# Basico\AgendaContatosTreinaWeb\AgendaContatosTreinaWeb\obj\Debug\net6.0-windows\refint\AgendaContatosTreinaWeb.dll
+C:\Users\55719\Documents\Trends\C# Basico\AgendaContatosTreinaWeb\AgendaContatosTreinaWeb\obj\Debug\net6.0-windows\AgendaContatosTreinaWeb.pdb
+C:\Users\55719\Documents\Trends\C# Basico\AgendaContatosTreinaWeb\AgendaContatosTreinaWeb\obj\Debug\net6.0-windows\AgendaContatosTreinaWeb.genruntimeconfig.cache
+C:\Users\55719\Documents\Trends\C# Basico\AgendaContatosTreinaWeb\AgendaContatosTreinaWeb\obj\Debug\net6.0-windows\ref\AgendaContatosTreinaWeb.dll
