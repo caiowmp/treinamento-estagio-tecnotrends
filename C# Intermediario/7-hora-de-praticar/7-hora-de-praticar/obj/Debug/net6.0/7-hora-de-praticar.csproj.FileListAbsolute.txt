@@ -1,0 +1,15 @@
+C:\Users\55719\Documents\Trends\C# Intermediario\7-hora-de-praticar\7-hora-de-praticar\obj\Debug\net6.0\7-hora-de-praticar.csproj.AssemblyReference.cache
+C:\Users\55719\Documents\Trends\C# Intermediario\7-hora-de-praticar\7-hora-de-praticar\obj\Debug\net6.0\7-hora-de-praticar.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\55719\Documents\Trends\C# Intermediario\7-hora-de-praticar\7-hora-de-praticar\obj\Debug\net6.0\7-hora-de-praticar.AssemblyInfoInputs.cache
+C:\Users\55719\Documents\Trends\C# Intermediario\7-hora-de-praticar\7-hora-de-praticar\obj\Debug\net6.0\7-hora-de-praticar.AssemblyInfo.cs
+C:\Users\55719\Documents\Trends\C# Intermediario\7-hora-de-praticar\7-hora-de-praticar\obj\Debug\net6.0\7-hora-de-praticar.csproj.CoreCompileInputs.cache
+C:\Users\55719\Documents\Trends\C# Intermediario\7-hora-de-praticar\7-hora-de-praticar\bin\Debug\net6.0\7-hora-de-praticar.exe
+C:\Users\55719\Documents\Trends\C# Intermediario\7-hora-de-praticar\7-hora-de-praticar\bin\Debug\net6.0\7-hora-de-praticar.deps.json
+C:\Users\55719\Documents\Trends\C# Intermediario\7-hora-de-praticar\7-hora-de-praticar\bin\Debug\net6.0\7-hora-de-praticar.runtimeconfig.json
+C:\Users\55719\Documents\Trends\C# Intermediario\7-hora-de-praticar\7-hora-de-praticar\bin\Debug\net6.0\7-hora-de-praticar.dll
+C:\Users\55719\Documents\Trends\C# Intermediario\7-hora-de-praticar\7-hora-de-praticar\bin\Debug\net6.0\7-hora-de-praticar.pdb
+C:\Users\55719\Documents\Trends\C# Intermediario\7-hora-de-praticar\7-hora-de-praticar\obj\Debug\net6.0\7-hora-de-praticar.dll
+C:\Users\55719\Documents\Trends\C# Intermediario\7-hora-de-praticar\7-hora-de-praticar\obj\Debug\net6.0\refint\7-hora-de-praticar.dll
+C:\Users\55719\Documents\Trends\C# Intermediario\7-hora-de-praticar\7-hora-de-praticar\obj\Debug\net6.0\7-hora-de-praticar.pdb
+C:\Users\55719\Documents\Trends\C# Intermediario\7-hora-de-praticar\7-hora-de-praticar\obj\Debug\net6.0\7-hora-de-praticar.genruntimeconfig.cache
+C:\Users\55719\Documents\Trends\C# Intermediario\7-hora-de-praticar\7-hora-de-praticar\obj\Debug\net6.0\ref\7-hora-de-praticar.dll
