@@ -1,0 +1,15 @@
+C:\Users\55719\Documents\Trends\C# Basico\36 - Hora de Praticar\36 - Hora de Praticar\obj\Debug\net6.0\36 - Hora de Praticar.csproj.AssemblyReference.cache
+C:\Users\55719\Documents\Trends\C# Basico\36 - Hora de Praticar\36 - Hora de Praticar\obj\Debug\net6.0\36 - Hora de Praticar.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\55719\Documents\Trends\C# Basico\36 - Hora de Praticar\36 - Hora de Praticar\obj\Debug\net6.0\36 - Hora de Praticar.AssemblyInfoInputs.cache
+C:\Users\55719\Documents\Trends\C# Basico\36 - Hora de Praticar\36 - Hora de Praticar\obj\Debug\net6.0\36 - Hora de Praticar.AssemblyInfo.cs
+C:\Users\55719\Documents\Trends\C# Basico\36 - Hora de Praticar\36 - Hora de Praticar\obj\Debug\net6.0\36 - Hora de Praticar.csproj.CoreCompileInputs.cache
+C:\Users\55719\Documents\Trends\C# Basico\36 - Hora de Praticar\36 - Hora de Praticar\bin\Debug\net6.0\36 - Hora de Praticar.exe
+C:\Users\55719\Documents\Trends\C# Basico\36 - Hora de Praticar\36 - Hora de Praticar\bin\Debug\net6.0\36 - Hora de Praticar.deps.json
+C:\Users\55719\Documents\Trends\C# Basico\36 - Hora de Praticar\36 - Hora de Praticar\bin\Debug\net6.0\36 - Hora de Praticar.runtimeconfig.json
+C:\Users\55719\Documents\Trends\C# Basico\36 - Hora de Praticar\36 - Hora de Praticar\bin\Debug\net6.0\36 - Hora de Praticar.dll
+C:\Users\55719\Documents\Trends\C# Basico\36 - Hora de Praticar\36 - Hora de Praticar\bin\Debug\net6.0\36 - Hora de Praticar.pdb
+C:\Users\55719\Documents\Trends\C# Basico\36 - Hora de Praticar\36 - Hora de Praticar\obj\Debug\net6.0\36 - Hora de Praticar.dll
+C:\Users\55719\Documents\Trends\C# Basico\36 - Hora de Praticar\36 - Hora de Praticar\obj\Debug\net6.0\refint\36 - Hora de Praticar.dll
+C:\Users\55719\Documents\Trends\C# Basico\36 - Hora de Praticar\36 - Hora de Praticar\obj\Debug\net6.0\36 - Hora de Praticar.pdb
+C:\Users\55719\Documents\Trends\C# Basico\36 - Hora de Praticar\36 - Hora de Praticar\obj\Debug\net6.0\36 - Hora de Praticar.genruntimeconfig.cache
+C:\Users\55719\Documents\Trends\C# Basico\36 - Hora de Praticar\36 - Hora de Praticar\obj\Debug\net6.0\ref\36 - Hora de Praticar.dll

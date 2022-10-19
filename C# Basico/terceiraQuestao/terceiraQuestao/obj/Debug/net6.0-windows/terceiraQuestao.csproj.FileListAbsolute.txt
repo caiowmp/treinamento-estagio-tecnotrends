@@ -1,0 +1,17 @@
+C:\Users\55719\Documents\Trends\C# Basico\terceiraQuestao\terceiraQuestao\obj\Debug\net6.0-windows\terceiraQuestao.csproj.AssemblyReference.cache
+C:\Users\55719\Documents\Trends\C# Basico\terceiraQuestao\terceiraQuestao\obj\Debug\net6.0-windows\terceiraQuestao.csproj.GenerateResource.cache
+C:\Users\55719\Documents\Trends\C# Basico\terceiraQuestao\terceiraQuestao\obj\Debug\net6.0-windows\terceiraQuestao.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\55719\Documents\Trends\C# Basico\terceiraQuestao\terceiraQuestao\obj\Debug\net6.0-windows\terceiraQuestao.AssemblyInfoInputs.cache
+C:\Users\55719\Documents\Trends\C# Basico\terceiraQuestao\terceiraQuestao\obj\Debug\net6.0-windows\terceiraQuestao.AssemblyInfo.cs
+C:\Users\55719\Documents\Trends\C# Basico\terceiraQuestao\terceiraQuestao\obj\Debug\net6.0-windows\terceiraQuestao.csproj.CoreCompileInputs.cache
+C:\Users\55719\Documents\Trends\C# Basico\terceiraQuestao\terceiraQuestao\obj\Debug\net6.0-windows\terceiraQuestao.frmProdutos.resources
+C:\Users\55719\Documents\Trends\C# Basico\terceiraQuestao\terceiraQuestao\bin\Debug\net6.0-windows\terceiraQuestao.exe
+C:\Users\55719\Documents\Trends\C# Basico\terceiraQuestao\terceiraQuestao\bin\Debug\net6.0-windows\terceiraQuestao.deps.json
+C:\Users\55719\Documents\Trends\C# Basico\terceiraQuestao\terceiraQuestao\bin\Debug\net6.0-windows\terceiraQuestao.runtimeconfig.json
+C:\Users\55719\Documents\Trends\C# Basico\terceiraQuestao\terceiraQuestao\bin\Debug\net6.0-windows\terceiraQuestao.dll
+C:\Users\55719\Documents\Trends\C# Basico\terceiraQuestao\terceiraQuestao\bin\Debug\net6.0-windows\terceiraQuestao.pdb
+C:\Users\55719\Documents\Trends\C# Basico\terceiraQuestao\terceiraQuestao\obj\Debug\net6.0-windows\terceiraQuestao.dll
+C:\Users\55719\Documents\Trends\C# Basico\terceiraQuestao\terceiraQuestao\obj\Debug\net6.0-windows\refint\terceiraQuestao.dll
+C:\Users\55719\Documents\Trends\C# Basico\terceiraQuestao\terceiraQuestao\obj\Debug\net6.0-windows\terceiraQuestao.pdb
+C:\Users\55719\Documents\Trends\C# Basico\terceiraQuestao\terceiraQuestao\obj\Debug\net6.0-windows\terceiraQuestao.genruntimeconfig.cache
+C:\Users\55719\Documents\Trends\C# Basico\terceiraQuestao\terceiraQuestao\obj\Debug\net6.0-windows\ref\terceiraQuestao.dll
