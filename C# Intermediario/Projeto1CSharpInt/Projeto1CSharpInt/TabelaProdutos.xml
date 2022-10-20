@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<tabela>
+  <titulo>Tabela de Controle de Produtos</titulo>
+  <produtos>
+    <produto nome="Fifa" preco="299.99" qtd="10000" />
+    <produto nome="COD" preco="199.99" qtd="5000" />
+    <produto nome="God Of War" preco="99.99" qtd="2000" />
+    <produto nome="Lord Of the Rings" preco="149.99" qtd="1000" />
+    <produto nome="LOL" preco="100" qtd="120" />
+    <produto nome="Valorant" preco="100" qtd="110" />
+    <produto nome="teste" preco="299" qtd="855" />
+    <produto nome="teste" preco="299" qtd="855" />
+    <produto nome="teste" preco="8.99" qtd="10" />
+  </produtos>
+</tabela>

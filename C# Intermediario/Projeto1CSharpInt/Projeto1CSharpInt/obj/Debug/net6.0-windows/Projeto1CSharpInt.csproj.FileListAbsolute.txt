@@ -1,0 +1,17 @@
+C:\Users\55719\Documents\Trends\C# Intermediario\Projeto1CSharpInt\Projeto1CSharpInt\obj\Debug\net6.0-windows\Projeto1CSharpInt.csproj.AssemblyReference.cache
+C:\Users\55719\Documents\Trends\C# Intermediario\Projeto1CSharpInt\Projeto1CSharpInt\obj\Debug\net6.0-windows\Projeto1CSharpInt.frmProdutos.resources
+C:\Users\55719\Documents\Trends\C# Intermediario\Projeto1CSharpInt\Projeto1CSharpInt\obj\Debug\net6.0-windows\Projeto1CSharpInt.csproj.GenerateResource.cache
+C:\Users\55719\Documents\Trends\C# Intermediario\Projeto1CSharpInt\Projeto1CSharpInt\obj\Debug\net6.0-windows\Projeto1CSharpInt.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\55719\Documents\Trends\C# Intermediario\Projeto1CSharpInt\Projeto1CSharpInt\obj\Debug\net6.0-windows\Projeto1CSharpInt.AssemblyInfoInputs.cache
+C:\Users\55719\Documents\Trends\C# Intermediario\Projeto1CSharpInt\Projeto1CSharpInt\obj\Debug\net6.0-windows\Projeto1CSharpInt.AssemblyInfo.cs
+C:\Users\55719\Documents\Trends\C# Intermediario\Projeto1CSharpInt\Projeto1CSharpInt\obj\Debug\net6.0-windows\Projeto1CSharpInt.csproj.CoreCompileInputs.cache
+C:\Users\55719\Documents\Trends\C# Intermediario\Projeto1CSharpInt\Projeto1CSharpInt\bin\Debug\net6.0-windows\Projeto1CSharpInt.exe
+C:\Users\55719\Documents\Trends\C# Intermediario\Projeto1CSharpInt\Projeto1CSharpInt\bin\Debug\net6.0-windows\Projeto1CSharpInt.deps.json
+C:\Users\55719\Documents\Trends\C# Intermediario\Projeto1CSharpInt\Projeto1CSharpInt\bin\Debug\net6.0-windows\Projeto1CSharpInt.runtimeconfig.json
+C:\Users\55719\Documents\Trends\C# Intermediario\Projeto1CSharpInt\Projeto1CSharpInt\bin\Debug\net6.0-windows\Projeto1CSharpInt.dll
+C:\Users\55719\Documents\Trends\C# Intermediario\Projeto1CSharpInt\Projeto1CSharpInt\bin\Debug\net6.0-windows\Projeto1CSharpInt.pdb
+C:\Users\55719\Documents\Trends\C# Intermediario\Projeto1CSharpInt\Projeto1CSharpInt\obj\Debug\net6.0-windows\Projeto1CSharpInt.dll
+C:\Users\55719\Documents\Trends\C# Intermediario\Projeto1CSharpInt\Projeto1CSharpInt\obj\Debug\net6.0-windows\refint\Projeto1CSharpInt.dll
+C:\Users\55719\Documents\Trends\C# Intermediario\Projeto1CSharpInt\Projeto1CSharpInt\obj\Debug\net6.0-windows\Projeto1CSharpInt.pdb
+C:\Users\55719\Documents\Trends\C# Intermediario\Projeto1CSharpInt\Projeto1CSharpInt\obj\Debug\net6.0-windows\Projeto1CSharpInt.genruntimeconfig.cache
+C:\Users\55719\Documents\Trends\C# Intermediario\Projeto1CSharpInt\Projeto1CSharpInt\obj\Debug\net6.0-windows\ref\Projeto1CSharpInt.dll
