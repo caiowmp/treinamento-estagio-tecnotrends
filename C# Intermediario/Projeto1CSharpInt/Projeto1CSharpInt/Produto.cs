@@ -9,9 +9,9 @@ namespace Projeto1CSharpInt
     public class Produto
     {
         public string Nome { get; set; }
-        public int Qtd { get; set; }
+        public string Qtd { get; set; }
         public string Preco { get; set; }
-        public Produto(string nome, string preco, int qtd)
+        public Produto(string nome, string preco, string qtd)
         {
             Nome = nome;
             Preco = preco;

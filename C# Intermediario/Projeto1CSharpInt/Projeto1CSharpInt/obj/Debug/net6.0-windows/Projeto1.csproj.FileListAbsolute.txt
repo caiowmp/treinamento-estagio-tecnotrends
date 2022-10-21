@@ -1,0 +1,17 @@
+C:\Users\55719\Documents\Trends\C# Intermediario\Projeto1CSharpInt\Projeto1CSharpInt\bin\Debug\net6.0-windows\Projeto1.exe
+C:\Users\55719\Documents\Trends\C# Intermediario\Projeto1CSharpInt\Projeto1CSharpInt\bin\Debug\net6.0-windows\Projeto1.deps.json
+C:\Users\55719\Documents\Trends\C# Intermediario\Projeto1CSharpInt\Projeto1CSharpInt\bin\Debug\net6.0-windows\Projeto1.runtimeconfig.json
+C:\Users\55719\Documents\Trends\C# Intermediario\Projeto1CSharpInt\Projeto1CSharpInt\bin\Debug\net6.0-windows\Projeto1.dll
+C:\Users\55719\Documents\Trends\C# Intermediario\Projeto1CSharpInt\Projeto1CSharpInt\bin\Debug\net6.0-windows\Projeto1.pdb
+C:\Users\55719\Documents\Trends\C# Intermediario\Projeto1CSharpInt\Projeto1CSharpInt\obj\Debug\net6.0-windows\Projeto1.csproj.AssemblyReference.cache
+C:\Users\55719\Documents\Trends\C# Intermediario\Projeto1CSharpInt\Projeto1CSharpInt\obj\Debug\net6.0-windows\Projeto1CSharpInt.frmProdutos.resources
+C:\Users\55719\Documents\Trends\C# Intermediario\Projeto1CSharpInt\Projeto1CSharpInt\obj\Debug\net6.0-windows\Projeto1.csproj.GenerateResource.cache
+C:\Users\55719\Documents\Trends\C# Intermediario\Projeto1CSharpInt\Projeto1CSharpInt\obj\Debug\net6.0-windows\Projeto1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\55719\Documents\Trends\C# Intermediario\Projeto1CSharpInt\Projeto1CSharpInt\obj\Debug\net6.0-windows\Projeto1.AssemblyInfoInputs.cache
+C:\Users\55719\Documents\Trends\C# Intermediario\Projeto1CSharpInt\Projeto1CSharpInt\obj\Debug\net6.0-windows\Projeto1.AssemblyInfo.cs
+C:\Users\55719\Documents\Trends\C# Intermediario\Projeto1CSharpInt\Projeto1CSharpInt\obj\Debug\net6.0-windows\Projeto1.csproj.CoreCompileInputs.cache
+C:\Users\55719\Documents\Trends\C# Intermediario\Projeto1CSharpInt\Projeto1CSharpInt\obj\Debug\net6.0-windows\Projeto1.dll
+C:\Users\55719\Documents\Trends\C# Intermediario\Projeto1CSharpInt\Projeto1CSharpInt\obj\Debug\net6.0-windows\refint\Projeto1.dll
+C:\Users\55719\Documents\Trends\C# Intermediario\Projeto1CSharpInt\Projeto1CSharpInt\obj\Debug\net6.0-windows\Projeto1.pdb
+C:\Users\55719\Documents\Trends\C# Intermediario\Projeto1CSharpInt\Projeto1CSharpInt\obj\Debug\net6.0-windows\Projeto1.genruntimeconfig.cache
+C:\Users\55719\Documents\Trends\C# Intermediario\Projeto1CSharpInt\Projeto1CSharpInt\obj\Debug\net6.0-windows\ref\Projeto1.dll

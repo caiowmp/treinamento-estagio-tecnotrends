@@ -13,9 +13,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\55719\\Documents\\Trends\\C# Intermediario\\Projeto1CSharpInt\\Projeto1CSharpInt\\Projeto1CSharpInt.csproj",
-      "projectName": "Projeto1CSharpInt",
-      "projectPath": "C:\\Users\\55719\\Documents\\Trends\\C# Intermediario\\Projeto1CSharpInt\\Projeto1CSharpInt\\Projeto1CSharpInt.csproj",
+      "projectUniqueName": "C:\\Users\\55719\\Documents\\Trends\\C# Intermediario\\Projeto1CSharpInt\\Projeto1CSharpInt\\Projeto1.csproj",
+      "projectName": "Projeto1",
+      "projectPath": "C:\\Users\\55719\\Documents\\Trends\\C# Intermediario\\Projeto1CSharpInt\\Projeto1CSharpInt\\Projeto1.csproj",
       "packagesPath": "C:\\Users\\55719\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\55719\\Documents\\Trends\\C# Intermediario\\Projeto1CSharpInt\\Projeto1CSharpInt\\obj\\",
       "projectStyle": "PackageReference",

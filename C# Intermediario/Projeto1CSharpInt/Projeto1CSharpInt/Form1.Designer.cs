@@ -39,6 +39,8 @@
             this.txbPreco = new System.Windows.Forms.TextBox();
             this.txbQtd = new System.Windows.Forms.TextBox();
             this.btnSalvar = new System.Windows.Forms.Button();
+            this.btnCancelar = new System.Windows.Forms.Button();
+            this.btnExcluir = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblTitulo
@@ -59,10 +61,11 @@
             this.lbxProdutos.Name = "lbxProdutos";
             this.lbxProdutos.Size = new System.Drawing.Size(1412, 394);
             this.lbxProdutos.TabIndex = 1;
+            this.lbxProdutos.SelectedIndexChanged += new System.EventHandler(this.lbxProdutos_SelectedIndexChanged);
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(974, 505);
+            this.btnAdd.Location = new System.Drawing.Point(974, 482);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(159, 54);
             this.btnAdd.TabIndex = 2;
@@ -72,7 +75,7 @@
             // 
             // btnAlterar
             // 
-            this.btnAlterar.Location = new System.Drawing.Point(765, 505);
+            this.btnAlterar.Location = new System.Drawing.Point(765, 482);
             this.btnAlterar.Name = "btnAlterar";
             this.btnAlterar.Size = new System.Drawing.Size(159, 54);
             this.btnAlterar.TabIndex = 3;
@@ -141,11 +144,33 @@
             this.btnSalvar.UseVisualStyleBackColor = true;
             this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
             // 
+            // btnCancelar
+            // 
+            this.btnCancelar.Location = new System.Drawing.Point(899, 586);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(102, 36);
+            this.btnCancelar.TabIndex = 11;
+            this.btnCancelar.Text = "Cancelar";
+            this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            // 
+            // btnExcluir
+            // 
+            this.btnExcluir.Location = new System.Drawing.Point(1182, 482);
+            this.btnExcluir.Name = "btnExcluir";
+            this.btnExcluir.Size = new System.Drawing.Size(159, 54);
+            this.btnExcluir.TabIndex = 12;
+            this.btnExcluir.Text = "Excluir";
+            this.btnExcluir.UseVisualStyleBackColor = true;
+            this.btnExcluir.Click += new System.EventHandler(this.btnExcluir_Click);
+            // 
             // frmProdutos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1450, 644);
+            this.Controls.Add(this.btnExcluir);
+            this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnSalvar);
             this.Controls.Add(this.txbQtd);
             this.Controls.Add(this.txbPreco);
@@ -178,5 +203,7 @@
         private TextBox txbPreco;
         private TextBox txbQtd;
         private Button btnSalvar;
+        private Button btnCancelar;
+        private Button btnExcluir;
     }
 }
