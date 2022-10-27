@@ -1,0 +1,15 @@
+C:\Users\55719\Documents\Trends\C# Avançado\Hora-de-praticar-8\Questao-2\bin\Debug\net6.0\Questao-2.exe
+C:\Users\55719\Documents\Trends\C# Avançado\Hora-de-praticar-8\Questao-2\bin\Debug\net6.0\Questao-2.deps.json
+C:\Users\55719\Documents\Trends\C# Avançado\Hora-de-praticar-8\Questao-2\bin\Debug\net6.0\Questao-2.runtimeconfig.json
+C:\Users\55719\Documents\Trends\C# Avançado\Hora-de-praticar-8\Questao-2\bin\Debug\net6.0\Questao-2.dll
+C:\Users\55719\Documents\Trends\C# Avançado\Hora-de-praticar-8\Questao-2\bin\Debug\net6.0\Questao-2.pdb
+C:\Users\55719\Documents\Trends\C# Avançado\Hora-de-praticar-8\Questao-2\obj\Debug\net6.0\Questao-2.csproj.AssemblyReference.cache
+C:\Users\55719\Documents\Trends\C# Avançado\Hora-de-praticar-8\Questao-2\obj\Debug\net6.0\Questao-2.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\55719\Documents\Trends\C# Avançado\Hora-de-praticar-8\Questao-2\obj\Debug\net6.0\Questao-2.AssemblyInfoInputs.cache
+C:\Users\55719\Documents\Trends\C# Avançado\Hora-de-praticar-8\Questao-2\obj\Debug\net6.0\Questao-2.AssemblyInfo.cs
+C:\Users\55719\Documents\Trends\C# Avançado\Hora-de-praticar-8\Questao-2\obj\Debug\net6.0\Questao-2.csproj.CoreCompileInputs.cache
+C:\Users\55719\Documents\Trends\C# Avançado\Hora-de-praticar-8\Questao-2\obj\Debug\net6.0\Questao-2.dll
+C:\Users\55719\Documents\Trends\C# Avançado\Hora-de-praticar-8\Questao-2\obj\Debug\net6.0\refint\Questao-2.dll
+C:\Users\55719\Documents\Trends\C# Avançado\Hora-de-praticar-8\Questao-2\obj\Debug\net6.0\Questao-2.pdb
+C:\Users\55719\Documents\Trends\C# Avançado\Hora-de-praticar-8\Questao-2\obj\Debug\net6.0\Questao-2.genruntimeconfig.cache
+C:\Users\55719\Documents\Trends\C# Avançado\Hora-de-praticar-8\Questao-2\obj\Debug\net6.0\ref\Questao-2.dll
