@@ -16,6 +16,12 @@ namespace ProjetoLivraria.Livraria
         // for usar).
         AutoresDAO ioAutoresDAO = new AutoresDAO();
 
+        public Autores AutorSessao
+        {
+            get { return (Autores)Session["SessionAutorSelecionado"];  }
+            set { Session["SessionAutorSelecionado"] = value; }
+        }
+
         //Utilizando uma ViewState, como uma porpriedade privada de classe, para armazenar a lista de 
         // autores cadastrados.
         public BindingList<Autores> ListaAutores
@@ -73,9 +79,9 @@ namespace ProjetoLivraria.Livraria
                 // isso é possível pois todo controle ASP tem um ID único na página e deve ser marcado como
                 // runat="server" parar virar um "ServerControl" e ser acessível aqui no "CodeBehind" da
                 // página).
-                string lsNomeAutor = this.txbCadastroNomeAutor.Text;
-                string lsSobrenomeAutor = this.txbCadastroSobrenomeAutor.Text;
-                string lsEmailAutor = this.txbCadastroEmailAutor.Text;
+                string lsNomeAutor = this.tbxCadastroNomeAutor.Text;
+                string lsSobrenomeAutor = this.tbxCadastroSobrenomeAutor.Text;
+                string lsEmailAutor = this.tbxCadastroEmailAutor.Text;
 
                 // Instanciando um objeto do tipo Autores para seer adicionado (perceba que só existe um
                 // construtor para essa classe onde devem ser passados todos os valores, fizemos isso como
@@ -94,9 +100,9 @@ namespace ProjetoLivraria.Livraria
                 HttpContext.Current.Response.Write("<script>alert('Erro no cadastro do Autor.'); </script>");
             }
             // Limpando campos do formulário.
-            this.txbCadastroNomeAutor.Text = String.Empty;
-            this.txbCadastroSobrenomeAutor.Text = String.Empty;
-            this.txbCadastroEmailAutor.Text = String.Empty;
+            this.tbxCadastroNomeAutor.Text = String.Empty;
+            this.tbxCadastroSobrenomeAutor.Text = String.Empty;
+            this.tbxCadastroEmailAutor.Text = String.Empty;
         }
 
         protected void gvGerenciamentoAutores_RowEditing(object sender, GridViewEditEventArgs e)
@@ -152,6 +158,62 @@ namespace ProjetoLivraria.Livraria
                 {
                     HttpContext.Current.Response.Write("<script>alert('Erro na atualização do cadastro do autor.');</script>");
                 }
+            }
+        }
+
+        protected void gvGerenciamentoAutores_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            try
+            {
+                GridViewRow loRGridViewRow = this.gvGerenciamentoAutores.Rows[e.RowIndex];
+                decimal ldcIdAutor = Convert.ToDecimal((this.gvGerenciamentoAutores.Rows[e.RowIndex]
+                    .FindControl("lblIdAutor") as Label).Text);
+                Autores loAutor = this.ioAutoresDAO.BuscaAutores(ldcIdAutor).FirstOrDefault();
+                if (loAutor != null)
+                {
+                    LivrosDAO loLivrosDAO = new LivrosDAO();
+                    if (loLivrosDAO.FindLivrosByAutor(loAutor).Count != 0)
+                        HttpContext.Current.Response.Write("<script>alert('Não é possível remover o autor" +
+                            " selecionado pois existem livros associados a eles.');</script>");
+                    else
+                    {
+                        this.ioAutoresDAO.RemoveAutor(loAutor);
+                        this.CarregaDados();
+                    }
+                }
+            }
+            catch
+            {
+                HttpContext.Current.Response.Write("<script>alert('Erro na remoção do autor selecionado.');" +
+                    "</script>");
+            }
+        }
+
+        protected void gvGerenciamentoAutores_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            // Lendo o CommandName do botão que foi clicado para verificar quais comandos devem ser executados.
+            switch (e.CommandName)
+            {
+                case "CarregaLivrosAutor":
+                    int liRowIndex = Convert.ToInt32(e.CommandArgument);
+                    decimal ldcIdAutor = Convert.ToDecimal((this.gvGerenciamentoAutores.Rows[liRowIndex].FindControl("lblIdAutor") as Label).Text);
+                    string lsNomeAutor = (this.gvGerenciamentoAutores.Rows[liRowIndex].FindControl("lblNomeAutor") as Label).Text;
+                    string lsSobrenomeAutor = (this.
+                        gvGerenciamentoAutores.Rows[liRowIndex].FindControl("lblSobrenomeAutor") as Label).Text;
+                    string lsEmailAutor = (this.gvGerenciamentoAutores.Rows[liRowIndex].FindControl("lblEmailAutor") as Label).Text;
+                    Autores loAutor = new Autores(ldcIdAutor, lsNomeAutor, lsSobrenomeAutor, lsEmailAutor);
+
+                    // Carregando o autor selecionado na sessão.
+                    this.AutorSessao = loAutor;
+
+                    // Implemente a tela de Gerenciamento de Livros para usar o comando abaixo (lembre-se de implementar uma propriedade para ler a
+                    // Sessão "SessionAutorSelecionado" e, no OnLoad da página, verificar se tem algum autor na sessão, caso positivo, carregue apenas
+                    // os livros do autor.)
+                    // Caso a página GerenciamentoLivros não esteja criada, ou não esteja no diretório Livraria, o botão não irá funcionar corretamente.
+                    Response.Redirect("/Livraria/GerenciamentoLivros");
+                    break;
+                default:
+                    break;
             }
         }
     }

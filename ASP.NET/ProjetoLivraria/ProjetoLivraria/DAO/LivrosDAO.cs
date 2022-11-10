@@ -157,5 +157,57 @@ namespace ProjetoLivraria.DAO
             }
             return liQtdRegistrosInseridos;
         }
+
+        public BindingList<Livros> FindLivrosByAutor(Autores aoAutor)
+        {
+            //Criando uma lista de Livros que será retornada pela função
+            BindingList<Livros> loListLivros = new BindingList<Livros>();
+
+            //Caso o Autor não venha preenchido, é lançada uma exceção do tipo NullReferenceException
+            if (aoAutor == null)
+                throw new NullReferenceException();
+
+            using (ioConexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"]
+                .ConnectionString))
+            {
+                try
+                {
+                    ioConexao.Open();
+
+                    //Montando a query que será executada para retornar o Livro, caso tenha sido passado um ID.
+                    ioQuery = new SqlCommand("SELECT * FROM LIV_LIVROS livros" +
+                         "INNER JOIN LIA_LIVRO_AUTOR livroAutor ON livros.liv_id_livro = livroAutor.lia_id_livro" +
+                         "INNER JOIN AUT_AUTORES autores ON livroAutro.lia_id_autor = autores.aut_id_autor" +
+                         "WHERE autores.aut_id_autor = @idAutor"
+                         , ioConexao);
+
+                    //Criando a variável @idLivro e setando o seu valor com o ID recebido por parâmetro pela função
+                    ioQuery.Parameters.Add(new SqlParameter("@idAutor", aoAutor.aut_id_autor));
+
+                    //Criando o bloco de leitura de dados do SQL server
+                    using (SqlDataReader loReader = ioQuery.ExecuteReader())
+                    {
+                        //Chamando a função de leitura antes de acessar os dados (uma vez para cada linha retornada na consulta)
+                        while (loReader.Read())
+                        {
+                            //Instanciando um objeto do tipo Livro e preenchendo suas propriedades com os valores retornados pela consulta
+                            Livros loNovoLivro = new Livros(loReader.GetDecimal(0), loReader.GetDecimal(1), loReader.GetDecimal(2),
+                                loReader.GetString(3), loReader.GetDecimal(4), loReader.GetDecimal(5), loReader.GetString(6),
+                                loReader.GetInt16(7));
+
+                            //Incluindo Livro na lista criada anteriormente
+                            loListLivros.Add(loNovoLivro);
+                        }
+                        //fechando objeto de leitura
+                        loReader.Close();
+                    }
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Erro ao tentar localizar Livros do Autor");
+                }
+            }
+            return loListLivros;
+        }
     }
 }

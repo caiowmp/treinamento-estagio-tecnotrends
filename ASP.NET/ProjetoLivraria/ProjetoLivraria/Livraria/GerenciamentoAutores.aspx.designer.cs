@@ -24,13 +24,13 @@ namespace ProjetoLivraria.Livraria
         protected global::System.Web.UI.WebControls.Label lblCadastroNomeAutor;
 
         /// <summary>
-        /// txbCadastroNomeAutor control.
+        /// tbxCadastroNomeAutor control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txbCadastroNomeAutor;
+        protected global::System.Web.UI.WebControls.TextBox tbxCadastroNomeAutor;
 
         /// <summary>
         /// RequiredFieldValidator1 control.
@@ -51,13 +51,13 @@ namespace ProjetoLivraria.Livraria
         protected global::System.Web.UI.WebControls.Label lblCadastroSobrenomeAutor;
 
         /// <summary>
-        /// txbCadastroSobrenomeAutor control.
+        /// tbxCadastroSobrenomeAutor control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txbCadastroSobrenomeAutor;
+        protected global::System.Web.UI.WebControls.TextBox tbxCadastroSobrenomeAutor;
 
         /// <summary>
         /// RequiredFieldValidator2 control.
@@ -78,13 +78,13 @@ namespace ProjetoLivraria.Livraria
         protected global::System.Web.UI.WebControls.Label lblCadastroEmailAutor;
 
         /// <summary>
-        /// txbCadastroEmailAutor control.
+        /// tbxCadastroEmailAutor control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txbCadastroEmailAutor;
+        protected global::System.Web.UI.WebControls.TextBox tbxCadastroEmailAutor;
 
         /// <summary>
         /// RequiredFieldValidator3 control.
@@ -112,140 +112,5 @@ namespace ProjetoLivraria.Livraria
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvGerenciamentoAutores;
-
-        /// <summary>
-        /// lblEditAutor control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblEditAutor;
-
-        /// <summary>
-        /// lblTextoIdAutor control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTextoIdAutor;
-
-        /// <summary>
-        /// lblTextoNomeAutor control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTextoNomeAutor;
-
-        /// <summary>
-        /// lblNomeAutor control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNomeAutor;
-
-        /// <summary>
-        /// txbEditSobrenomeAutor control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txbEditSobrenomeAutor;
-
-        /// <summary>
-        /// lblTextoSobrenomeAutor control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTextoSobrenomeAutor;
-
-        /// <summary>
-        /// lblSobrenomeAutor control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblSobrenomeAutor;
-
-        /// <summary>
-        /// txbEditEmailAutor control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txbEditEmailAutor;
-
-        /// <summary>
-        /// lblTextEmailAutor control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTextEmailAutor;
-
-        /// <summary>
-        /// lblEmailAutor control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblEmailAutor;
-
-        /// <summary>
-        /// btnUpdate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnUpdate;
-
-        /// <summary>
-        /// btnCancelar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCancelar;
-
-        /// <summary>
-        /// btnEditarAutor control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEditarAutor;
-
-        /// <summary>
-        /// btnDeletarAutor control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnDeletarAutor;
-
-        /// <summary>
-        /// btnCarregaLivrosAutor control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCarregaLivrosAutor;
     }
 }
