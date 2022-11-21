@@ -1,146 +1,156 @@
-﻿using System;
+﻿using Library_Management.Models;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Library_Management.Models;
+using System.Web;
 
 namespace Library_Management.DAO
 {
-    internal class EditoresDAO
+    public class EditoresDAO
     {
-        private string connectionString = "Data Source=trendsclouddb01\\dev01;Database=treinamento_livraria;User ID=sagresadm;Password=sagesadm";
+        SqlCommand ioQuery;
+        //Instanciando o objeto SqlConnection para abrir a conexão com o banco de dados
+        SqlConnection ioConexao;
 
-
-        public IEnumerable<Editores> SelectEditores(decimal? ediID = null)
+        public BindingList<Editores> BuscaEditores(decimal? edi_id_editor = null)
         {
-            List<Editores> resultQuery = new List<Editores>();
+            //Criando uma lista de Editores que será retornada pela função
+            BindingList<Editores> loListEditores = new BindingList<Editores>();
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            //Criando conexão com o banco de daods, utilizando as informações que foram preenchidas
+            // no Web.config na tag ConnectionStrings e nome ConnectionString
+            using (ioConexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
                 try
                 {
-                    connection.Open();
+                    //Abrindo conexõa com o servidor
+                    ioConexao.Open();
 
-                    SqlCommand sqlQuery;
-
-                    if (ediID != null)
+                    if (edi_id_editor != null)
                     {
-                        sqlQuery = new SqlCommand("SELECT * FROM EDI_EDITORES WHERE EDI_ID = @idEditor", connection);
-                        sqlQuery.Parameters.Add(new SqlParameter("@idEditor", ediID));
+                        //Montando a query que será executada para retornar o Editor, caso tenha sido passado um ID.
+                        ioQuery = new SqlCommand("SELECT * FROM EDI_EDITORES WHERE EDI_ID_EDITOR = @idEditor", ioConexao);
+
+                        //Criando a variável @idEditor e setando o seu valor com o ID recebido por parâmetro pela função
+                        ioQuery.Parameters.Add(new SqlParameter("@idEditor", edi_id_editor));
                     }
                     else
                     {
-                        sqlQuery = new SqlCommand("SELECT * FROM EDI_EDITORES", connection);
+                        //Caso não seja passado nenhum ID, a query deve retornar todos os Editores
+                        ioQuery = new SqlCommand("SELECT * FROM EDI_EDITORES", ioConexao);
                     }
-
-
-                    using (SqlDataReader reader = sqlQuery.ExecuteReader())
+                    //Criando o bloco de leitura de dados do SQL server
+                    using (SqlDataReader loReader = ioQuery.ExecuteReader())
                     {
-                        while (reader.Read())
+                        //Chamando a função de leitura antes de acessar os dados (uma vez para cada linha retornada na consulta)
+                        while (loReader.Read())
                         {
-                            Editores tempEdi = new Editores(reader.GetDecimal(0), reader.GetString(1), reader.GetString(2), reader.GetString(3));
-                            resultQuery.Add(tempEdi);
-                        }
+                            //Instanciando um objeto do tipo Editor e preenchendo suas propriedades com os valores retornados pela consulta
+                            Editores loNovoEditor = new Editores(loReader.GetDecimal(0), loReader.GetString(1), loReader.GetString(2), loReader.GetString(3));
 
-                        connection.Close();
+                            //Incluindo Editor na lista criada anteriormente
+                            loListEditores.Add(loNovoEditor);
+                        }
+                        //fechando objeto de leitura
+                        loReader.Close();
                     }
                 }
                 catch
                 {
-                    throw new Exception("Erro em tentar buscar os editores");
+                    throw new Exception("Erro ao tentar buscar o(s) editor(es)");
                 }
             }
-
-
-            return resultQuery;
+            return loListEditores;
         }
 
-        public decimal InsertEditor(Editores newEditor)
+        public int InsereEditor(Editores aoNovoEditor)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            //Caso o Editor não venha preenchido, é lançada uma exceção do tipo NullReferenceException
+            if (aoNovoEditor == null)
+                throw new NullReferenceException();
+
+            int liQtdRegistrosInseridos = 0;
+
+            using (ioConexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
                 try
                 {
-                    connection.Open();
+                    ioConexao.Open();
+                    ioQuery = new SqlCommand("INSERT INTO EDI_EDITORES(EDI_ID_EDITOR, EDI_NM_EDITOR, EDI_DS_EMAIL, EDI_DS_URL)" +
+                        "VALUES(@idEditor, @nomeEditor, @emailEditor, @urlEditor)", ioConexao);
+                    ioQuery.Parameters.Add(new SqlParameter("@idEditor", aoNovoEditor.edi_id_editores));
+                    ioQuery.Parameters.Add(new SqlParameter("@nomeEditor", aoNovoEditor.edi_nm_editor));
+                    ioQuery.Parameters.Add(new SqlParameter("@emailEditor", aoNovoEditor.edi_ds_email));
+                    ioQuery.Parameters.Add(new SqlParameter("@urlEditor", aoNovoEditor.edi_ds_url));
 
-                    decimal idResult;
-
-                    SqlCommand sqlQuery = new SqlCommand("INSERT INTO EDI_EDITORES(EDI_ID_EDITOR, EDI_NM_EDITOR, EDI_DS_URL, EDI_DS_EMAIL) VALUES(@idEditor, @nomeEditor, @urlEditor, @emailEditor)", connection);
-
-                    sqlQuery.Parameters.Add(new SqlParameter("@idEditor", newEditor.edi_id_editor));
-                    sqlQuery.Parameters.Add(new SqlParameter("@nomeEditor", newEditor.edi_nm_editor));
-                    sqlQuery.Parameters.Add(new SqlParameter("@urlEditor", newEditor.edi_ds_url));
-                    sqlQuery.Parameters.Add(new SqlParameter("@emailEditor", newEditor.edi_ds_email));
-
-                    sqlQuery.ExecuteNonQuery();
-
-                    idResult = newEditor.edi_id_editor;
-
-                    return idResult;
-
+                    //Executando o comando Transact-SQL e retornando a quantidade de linhas afetadas.
+                    liQtdRegistrosInseridos = ioQuery.ExecuteNonQuery();
                 }
-                catch
+                catch (Exception e)
                 {
-                    throw new Exception("Erro em tentar inserir novo editor");
+                    throw new Exception("Erro ao tentar cadastrar novo Editor");
                 }
             }
+            return liQtdRegistrosInseridos;
         }
 
-        public int UpdateEditor(Editores newEditor)
+        public int RemoveEditor(Editores aoEditor)
         {
+            if (aoEditor == null)
+                throw new ArgumentNullException();
 
-            int lineaffects;
+            int liQtdRegistrosInseridos = 0;
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (ioConexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
                 try
                 {
-                    connection.Open();
+                    ioConexao.Open();
+                    ioQuery = new SqlCommand("DELETE FROM EDI_EDITORES WHERE EDI_ID_EDITOR = @idEditor", ioConexao);
+                    ioQuery.Parameters.Add(new SqlParameter("@idEditor", aoEditor.edi_id_editores));
 
-                    SqlCommand sqlQuery = new SqlCommand("UPDATE EDI_EDITORES SET EDI_NM_EDITOR = @nomeEditor, EDI_DS_URL = @urlEditor, EDI_DS_EMAIL = @emailEditor WHERE EDI_ID_EDITOR = @idEditor", connection);
-
-                    sqlQuery.Parameters.Add(new SqlParameter("@idEditor", newEditor.edi_id_editor));
-                    sqlQuery.Parameters.Add(new SqlParameter("@nomeEditor", newEditor.edi_nm_editor));
-                    sqlQuery.Parameters.Add(new SqlParameter("@urlEditor", newEditor.edi_ds_url));
-                    sqlQuery.Parameters.Add(new SqlParameter("@emailEditor", newEditor.edi_ds_email));
-
-                    lineaffects = sqlQuery.ExecuteNonQuery();
-
-                    return lineaffects;
+                    //Executando o comando Transact-SQL e retornando a quantidade de linhas afetadas.
+                    liQtdRegistrosInseridos = ioQuery.ExecuteNonQuery();
                 }
-                catch
+                catch (Exception e)
                 {
-                    throw new Exception("Erro em tentar atualizar editor");
+                    throw new Exception("Erro ao tentar excluir Editor");
                 }
             }
+            return liQtdRegistrosInseridos;
         }
 
-        public int DeleteEditor(decimal autID)
+        public int AtualizaEditor(Editores aoEditor)
         {
-            int lineaffects;
+            if (aoEditor == null)
+                throw new ArgumentNullException();
 
+            int liQtdRegistrosInseridos = 0;
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (ioConexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
                 try
                 {
-                    connection.Open();
+                    ioConexao.Open();
+                    ioQuery = new SqlCommand("UPDATE EDI_EDITORES SET EDI_NM_EDITOR = @nomeEditor, EDI_DS_EMAIL = @emailEditor, " +
+                        "EDI_DS_URL = @urlEditor WHERE EDI_ID_EDITOR = @idEditor", ioConexao);
+                    ioQuery.Parameters.Add(new SqlParameter("@idEditor", aoEditor.edi_id_editores));
+                    ioQuery.Parameters.Add(new SqlParameter("@nomeEditor", aoEditor.edi_nm_editor));
+                    ioQuery.Parameters.Add(new SqlParameter("@emailEditor", aoEditor.edi_ds_email));
+                    ioQuery.Parameters.Add(new SqlParameter("@urlEditor", aoEditor.edi_ds_url));
 
-                    SqlCommand sqlQuery = new SqlCommand("DELETE FROM EDI_EDITORES WHERE EDI_ID_EDITOR = @idEditor", connection);
-                    sqlQuery.Parameters.Add(new SqlParameter("@idEditor", autID));
-
-                    lineaffects = sqlQuery.ExecuteNonQuery();
-
-                    return lineaffects;
+                    //Executando o comando Transact-SQL e retornando a quantidade de linhas afetadas.
+                    liQtdRegistrosInseridos = ioQuery.ExecuteNonQuery();
                 }
-                catch
+                catch (Exception e)
                 {
-                    throw new Exception("Erro em tentar deletar editor");
+                    throw new Exception("Erro ao tentar atualizar as informações do Editor");
                 }
             }
-
+            return liQtdRegistrosInseridos;
         }
     }
 }

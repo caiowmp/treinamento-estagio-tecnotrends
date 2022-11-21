@@ -1,147 +1,156 @@
-﻿using System;
+﻿using Library_Management.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Library_Management.Models;
+using System.Web;
 
 namespace Library_Management.DAO
 {
     public class AutoresDAO
     {
-        private string connectionString = "Data Source=trendsclouddb01\\dev01;Database=treinamento_livraria;User ID=sagresadm;Password=sagresadm";
+        SqlCommand ioQuery;
+        //Instanciando o objeto SqlConnection para abrir a conexão com o banco de dados
+        SqlConnection ioConexao;
 
-        public BindingList<Autores> SelectAutores(decimal? autID = null)
+        public BindingList<Autores> BuscaAutores(decimal? aut_id_autor = null)
         {
-            BindingList<Autores> resultQuery = new BindingList<Autores>();
+            //Criando uma lista de autores que será retornada pela função
+            BindingList<Autores> loListAutores = new BindingList<Autores>();
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            //Criando conexão com o banco de daods, utilizando as informações que foram preenchidas
+            // no Web.config na tag ConnectionStrings e nome ConnectionString
+            using (ioConexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
                 try
                 {
-                    connection.Open();
-
-                    SqlCommand sqlQuery;
-                    Console.WriteLine(autID);
-
-                    if (autID != null)
+                    //Abrindo conexõa com o servidor
+                    ioConexao.Open();
+                    
+                    if(aut_id_autor != null)
                     {
-                        sqlQuery = new SqlCommand("SELECT * FROM AUT_AUTORES WHERE AUT_ID = @idAutor", connection);
-                        sqlQuery.Parameters.Add(new SqlParameter("@idAutor", autID));
+                        //Montando a query que será executada para retornar o autor, caso tenha sido passado um ID.
+                        ioQuery = new SqlCommand("SELECT * FROM AUT_AUTORES WHERE AUT_ID_AUTOR = @idAutor", ioConexao);
+
+                        //Criando a variável @idAutor e setando o seu valor com o ID recebido por parâmetro pela função
+                        ioQuery.Parameters.Add(new SqlParameter("@idAutor", aut_id_autor));
                     }
                     else
                     {
-                        sqlQuery = new SqlCommand("SELECT * FROM AUT_AUTORES", connection);
+                        //Caso não seja passado nenhum ID, a query deve retornar todos os autores
+                        ioQuery = new SqlCommand("SELECT * FROM AUT_AUTORES", ioConexao);
                     }
-
-
-                    using (SqlDataReader reader = sqlQuery.ExecuteReader())
+                    //Criando o bloco de leitura de dados do SQL server
+                    using (SqlDataReader loReader = ioQuery.ExecuteReader())
                     {
-                        while (reader.Read())
+                        //Chamando a função de leitura antes de acessar os dados (uma vez para cada linha retornada na consulta)
+                        while (loReader.Read())
                         {
-                            Autores tempAut = new Autores(reader.GetDecimal(0), reader.GetString(1), reader.GetString(2), reader.GetString(3));
-                            resultQuery.Add(tempAut);
-                        }
+                            //Instanciando um objeto do tipo Autor e preenchendo suas propriedades com os valores retornados pela consulta
+                            Autores loNovoAutor = new Autores(loReader.GetDecimal(0), loReader.GetString(1), loReader.GetString(2), loReader.GetString(3));
 
-                        connection.Close();
+                            //Incluindo Autor na lista criada anteriormente
+                            loListAutores.Add(loNovoAutor);
+                        }
+                        //fechando objeto de leitura
+                        loReader.Close();
                     }
                 }
                 catch
                 {
-                    throw new Exception("Erro em tentar buscar os autores");
+                    throw new Exception("Erro ao tentar buscar o(s) autor(es)");
                 }
             }
-
-
-            return resultQuery;
+            return loListAutores;
         }
 
-        public decimal InsertAutor(Autores newAutor)
+        public int InsereAutor(Autores aoNovoAutor)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            //Caso o Autor não venha preenchido, é lançada uma exceção do tipo NullReferenceException
+            if(aoNovoAutor == null)
+                throw new NullReferenceException();
+
+            int liQtdRegistrosInseridos = 0;
+
+            using (ioConexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
                 try
                 {
-                    connection.Open();
+                    ioConexao.Open();
+                    ioQuery = new SqlCommand("INSERT INTO AUT_AUTORES(AUT_ID_AUTOR, AUT_NM_NOME, AUT_NM_SOBRENOME, AUT_DS_EMAIL)" +
+                        "VALUES(@idAutor, @nomeAutor, @sobrenomeAutor, @emailAutor)", ioConexao);
+                    ioQuery.Parameters.Add(new SqlParameter("@idAutor", aoNovoAutor.aut_id_autor));
+                    ioQuery.Parameters.Add(new SqlParameter("@nomeAutor", aoNovoAutor.aut_nm_nome));
+                    ioQuery.Parameters.Add(new SqlParameter("@sobrenomeAutor", aoNovoAutor.aut_nm_sobrenome));
+                    ioQuery.Parameters.Add(new SqlParameter("@emailAutor", aoNovoAutor.aut_ds_email));
 
-                    decimal idResult;
-
-                    SqlCommand sqlQuery = new SqlCommand("INSERT INTO AUT_AUTORES(AUT_ID_AUTOR, AUT_NM_NOME, AUT_NM_SOBRENOME, AUT_DS_EMAIL) VALUES(@idAutor, @nomeAutor, @sobrenomeAutor, @emailAutor)", connection);
-
-                    sqlQuery.Parameters.Add(new SqlParameter("@idAutor", newAutor.aut_id_autor));
-                    sqlQuery.Parameters.Add(new SqlParameter("@nomeAutor", newAutor.aut_nm_name));
-                    sqlQuery.Parameters.Add(new SqlParameter("@sobrenomeAutor", newAutor.aut_nm_sobrenome));
-                    sqlQuery.Parameters.Add(new SqlParameter("@emailAutor", newAutor.aut_ds_email));
-
-                    sqlQuery.ExecuteNonQuery();
-
-                    idResult = newAutor.aut_id_autor;
-
-                    return idResult;
-
+                    //Executando o comando Transact-SQL e retornando a quantidade de linhas afetadas.
+                    liQtdRegistrosInseridos = ioQuery.ExecuteNonQuery();
                 }
-                catch
+                catch(Exception e)
                 {
-                    throw new Exception("Erro em tentar inserir novo autor");
+                    throw new Exception("Erro ao tentar cadastrar novo Autor");
                 }
             }
+            return liQtdRegistrosInseridos;
         }
 
-        public int UpdateAutor(Autores newAutor)
+        public int RemoveAutor(Autores aoAutor)
         {
+            if (aoAutor == null)
+                throw new ArgumentNullException();
 
-            int lineaffects;
+            int liQtdRegistrosInseridos = 0;
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (ioConexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
                 try
                 {
-                    connection.Open();
+                    ioConexao.Open();
+                    ioQuery = new SqlCommand("DELETE FROM AUT_AUTORES WHERE AUT_ID_AUTOR = @idAutor", ioConexao);
+                    ioQuery.Parameters.Add(new SqlParameter("@idAutor", aoAutor.aut_id_autor));
 
-                    SqlCommand sqlQuery = new SqlCommand("UPDATE AUT_AUTORES SET AUT_NM_NOME = @nomeAutor, AUT_NM_SOBRENOME = @sobrenomeAutor, AUT_DS_EMAIL = @emailAutor WHERE AUT_ID_AUTOR = @idAutor", connection);
-
-                    sqlQuery.Parameters.Add(new SqlParameter("@idAutor", newAutor.aut_id_autor));
-                    sqlQuery.Parameters.Add(new SqlParameter("@nomeAutor", newAutor.aut_nm_name));
-                    sqlQuery.Parameters.Add(new SqlParameter("@sobrenomeAutor", newAutor.aut_nm_sobrenome));
-                    sqlQuery.Parameters.Add(new SqlParameter("@emailAutor", newAutor.aut_ds_email));
-
-                    lineaffects = sqlQuery.ExecuteNonQuery();
-
-                    return lineaffects;
+                    //Executando o comando Transact-SQL e retornando a quantidade de linhas afetadas.
+                    liQtdRegistrosInseridos = ioQuery.ExecuteNonQuery();
                 }
-                catch
+                catch (Exception e)
                 {
-                    throw new Exception("Erro em tentar atualizar autor");
+                    throw new Exception("Erro ao tentar excluir Autor");
                 }
             }
+            return liQtdRegistrosInseridos;
         }
 
-    public int DeleteAutor(decimal autID)
+        public int AtualizaAutor(Autores aoAutor)
         {
-            int lineaffects;
+            if (aoAutor == null)
+                throw new ArgumentNullException();
 
+            int liQtdRegistrosInseridos = 0;
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (ioConexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
                 try
                 {
-                    connection.Open();
+                    ioConexao.Open();
+                    ioQuery = new SqlCommand("UPDATE AUT_AUTORES SET AUT_NM_NOME = @nomeAutor, AUT_NM_SOBRENOME = @sobrenomeAutor," +
+                        " AUT_DS_EMAIL = @emailAutor WHERE AUT_ID_AUTOR = @idAutor", ioConexao);
+                    ioQuery.Parameters.Add(new SqlParameter("@idAutor", aoAutor.aut_id_autor));
+                    ioQuery.Parameters.Add(new SqlParameter("@nomeAutor", aoAutor.aut_nm_nome));
+                    ioQuery.Parameters.Add(new SqlParameter("@sobrenomeAutor", aoAutor.aut_nm_sobrenome));
+                    ioQuery.Parameters.Add(new SqlParameter("@emailAutor", aoAutor.aut_ds_email));
 
-                    SqlCommand sqlQuery = new SqlCommand("DELETE FROM AUT_AUTORES WHERE AUT_ID_AUTOR = @idAutor", connection);
-                    sqlQuery.Parameters.Add(new SqlParameter("@idAutor", autID));
-
-                    lineaffects = sqlQuery.ExecuteNonQuery();
-
-                    return lineaffects;
+                    //Executando o comando Transact-SQL e retornando a quantidade de linhas afetadas.
+                    liQtdRegistrosInseridos = ioQuery.ExecuteNonQuery();
                 }
-                catch
+                catch (Exception e)
                 {
-                    throw new Exception("Erro em tentar deletar autor");
+                    throw new Exception("Erro ao tentar atualiza informações do Autor");
                 }
             }
-
+            return liQtdRegistrosInseridos;
         }
     }
 }

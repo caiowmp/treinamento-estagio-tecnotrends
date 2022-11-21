@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
 namespace Library_Management.Models
 {
-    internal class LivroAutor
+    public class LivroAutor
     {
         public decimal lia_id_autor { get; set; }
         public decimal lia_id_livro { get; set; }

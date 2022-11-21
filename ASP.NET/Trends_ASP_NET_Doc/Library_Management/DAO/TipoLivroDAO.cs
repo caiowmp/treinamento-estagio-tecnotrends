@@ -1,142 +1,152 @@
-﻿using System;
+﻿using Library_Management.Models;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Library_Management.Models;
+using System.Web;
 
 namespace Library_Management.DAO
 {
-    internal class TipoLivroDAO
+    public class TipoLivroDAO
     {
-        private string connectionString = "Data Source=trendsclouddb01\\dev01;Database=treinamento_livraria;User ID=sagresadm;Password=sagesadm";
+        SqlCommand ioQuery;
+        //Instanciando o objeto SqlConnection para abrir a conexão com o banco de dados
+        SqlConnection ioConexao;
 
-
-        public IEnumerable<TipoLivro> SelectTipoLivro(decimal? tipoLivroID = null)
+        public BindingList<TipoLivro> BuscaTipoLivro(decimal? til_id_tipo_livro = null)
         {
-            List<TipoLivro> resultQuery = new List<TipoLivro>();
+            //Criando uma lista de TipoLivro que será retornada pela função
+            BindingList<TipoLivro> loListTipoLivro = new BindingList<TipoLivro>();
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            //Criando conexão com o banco de daods, utilizando as informações que foram preenchidas
+            // no Web.config na tag ConnectionStrings e nome ConnectionString
+            using (ioConexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
                 try
                 {
-                    connection.Open();
+                    //Abrindo conexõa com o servidor
+                    ioConexao.Open();
 
-                    SqlCommand sqlQuery;
-
-                    if (tipoLivroID != null)
+                    if (til_id_tipo_livro != null)
                     {
-                        sqlQuery = new SqlCommand("SELECT * FROM TIL_TIPO_LIVRO WHERE TIL_ID_TIPO_LIVRO = @idTipoLivro", connection);
-                        sqlQuery.Parameters.Add(new SqlParameter("@idTipoLivro", tipoLivroID));
+                        //Montando a query que será executada para retornar o autor, caso tenha sido passado um ID.
+                        ioQuery = new SqlCommand("SELECT * FROM TIL_TIPO_LIVRO WHERE TIL_ID_TIPO_LIVRO = @idTipoLivro", ioConexao);
+
+                        //Criando a variável @idAutor e setando o seu valor com o ID recebido por parâmetro pela função
+                        ioQuery.Parameters.Add(new SqlParameter("@idTipoLivro", til_id_tipo_livro));
                     }
                     else
                     {
-                        sqlQuery = new SqlCommand("SELECT * FROM TIL_TIPO_LIVRO", connection);
+                        //Caso não seja passado nenhum ID, a query deve retornar todos os TipoLivro
+                        ioQuery = new SqlCommand("SELECT * FROM TIL_TIPO_LIVRO", ioConexao);
                     }
-
-
-                    using (SqlDataReader reader = sqlQuery.ExecuteReader())
+                    //Criando o bloco de leitura de dados do SQL server
+                    using (SqlDataReader loReader = ioQuery.ExecuteReader())
                     {
-                        while (reader.Read())
+                        //Chamando a função de leitura antes de acessar os dados (uma vez para cada linha retornada na consulta)
+                        while (loReader.Read())
                         {
-                            TipoLivro tempTipoLivro = new TipoLivro(reader.GetDecimal(0), reader.GetString(1));
-                            resultQuery.Add(tempTipoLivro);
-                        }
+                            //Instanciando um objeto do tipo Autor e preenchendo suas propriedades com os valores retornados pela consulta
+                            TipoLivro loNovoEditor = new TipoLivro(loReader.GetDecimal(0), loReader.GetString(1));
 
-                        connection.Close();
+                            //Incluindo Autor na lista criada anteriormente
+                            loListTipoLivro.Add(loNovoEditor);
+                        }
+                        //fechando objeto de leitura
+                        loReader.Close();
                     }
                 }
                 catch
                 {
-                    throw new Exception("Erro em tentar buscar os tipos de livros");
+                    throw new Exception("Erro ao tentar buscar o(s) TipoLivro(es)");
                 }
             }
-
-
-            return resultQuery;
+            return loListTipoLivro;
         }
 
-        public decimal InsertAutor(TipoLivro newTipoLivro)
+        public int InsereTipoLivro(TipoLivro aoNovoTipoLivro)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            //Caso o TipoLivro não venha preenchido, é lançada uma exceção do tipo NullReferenceException
+            if (aoNovoTipoLivro == null)
+                throw new NullReferenceException();
+
+            int liQtdRegistrosInseridos = 0;
+
+            using (ioConexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
                 try
                 {
-                    connection.Open();
+                    ioConexao.Open();
+                    ioQuery = new SqlCommand("INSERT INTO TIL_TIPO_LIVRO (TIL_ID_TIPO_LIVRO, TIL_DS_DESCRICAO)" +
+                        "VALUES(@idTipoLivro, @dsDescricao)", ioConexao);
+                    ioQuery.Parameters.Add(new SqlParameter("@idTipoLivro", aoNovoTipoLivro.til_id_tipo_livro));
+                    ioQuery.Parameters.Add(new SqlParameter("@dsDescricao", aoNovoTipoLivro.til_ds_descricao));
 
-                    decimal idResult;
-
-                    SqlCommand sqlQuery = new SqlCommand("INSERT INTO TIL_TIPO_LIVRO(TIL_ID_TIPO_LIVRO, TIL_DS_DESCRICAO) VALUES(@idTipoLivro, @descricao)", connection);
-
-                    sqlQuery.Parameters.Add(new SqlParameter("@idTipoLivro", newTipoLivro.til_id_tipo_livro));
-                    sqlQuery.Parameters.Add(new SqlParameter("@descricao", newTipoLivro.til_ds_resumo));
-
-                    sqlQuery.ExecuteNonQuery();
-
-                    idResult = newTipoLivro.til_id_tipo_livro;
-
-                    return idResult;
-
+                    //Executando o comando Transact-SQL e retornando a quantidade de linhas afetadas.
+                    liQtdRegistrosInseridos = ioQuery.ExecuteNonQuery();
                 }
-                catch
+                catch (Exception e)
                 {
-                    throw new Exception("Erro em tentar inserir novo tipo de livro");
+                    throw new Exception("Erro ao tentar cadastrar novo TipoLivro");
                 }
             }
+            return liQtdRegistrosInseridos;
         }
 
-        public int UpdateAutor(TipoLivro newTipoLivro)
+        public int RemoveTiopoLivro(TipoLivro aoTipoLivro)
         {
+            if (aoTipoLivro== null)
+                throw new ArgumentNullException();
 
-            int lineaffects;
+            int liQtdRegistrosInseridos = 0;
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (ioConexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
                 try
                 {
-                    connection.Open();
+                    ioConexao.Open();
+                    ioQuery = new SqlCommand("DELETE FROM TIL_TIPO_LIVRO WHERE TIL_ID_TIPO_LIVRO = @idTipoLivro", ioConexao);
+                    ioQuery.Parameters.Add(new SqlParameter("@idTipoLivro", aoTipoLivro.til_id_tipo_livro));
 
-                    SqlCommand sqlQuery = new SqlCommand("UPDATE TIL_TIPO_LIVRO SET TIL_DS_DESCRICAO = @descricao WHERE AUT_AUTOR = @idTipoLivro", connection);
-
-                    sqlQuery.Parameters.Add(new SqlParameter("@idTipoLivro", newTipoLivro.til_id_tipo_livro));
-                    sqlQuery.Parameters.Add(new SqlParameter("@descricao", newTipoLivro.til_ds_resumo));
-
-                    lineaffects = sqlQuery.ExecuteNonQuery();
-
-                    return lineaffects;
+                    //Executando o comando Transact-SQL e retornando a quantidade de linhas afetadas.
+                    liQtdRegistrosInseridos = ioQuery.ExecuteNonQuery();
                 }
-                catch
+                catch (Exception e)
                 {
-                    throw new Exception("Erro em tentar atualizar o tipo de livro");
+                    throw new Exception("Erro ao tentar excluir TipoLivro");
                 }
             }
+            return liQtdRegistrosInseridos;
         }
 
-        public int DeleteAutor(decimal tipoLivroID)
+        public int AtualizaTipoLivro(TipoLivro aoTipoLivro)
         {
-            int lineaffects;
+            if (aoTipoLivro == null)
+                throw new ArgumentNullException();
 
+            int liQtdRegistrosInseridos = 0;
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (ioConexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
                 try
                 {
-                    connection.Open();
+                    ioConexao.Open();
+                    ioQuery = new SqlCommand("UPDATE FROM TIL_TIPO_LIVRO SET TIL_ID_TIPO_LIVRO = @idTipoLivro, " +
+                        "TIL_DS_DESCRICAO = @dsDescricao WHERE TIL_ID_TIPO_LIVRO = @idTipoLivro", ioConexao);
+                    ioQuery.Parameters.Add(new SqlParameter("@idTipoLivro", aoTipoLivro.til_id_tipo_livro));
+                    ioQuery.Parameters.Add(new SqlParameter("@dsDescricao", aoTipoLivro.til_ds_descricao));
 
-                    SqlCommand sqlQuery = new SqlCommand("DELETE FROM TIL_TIPO_LIVRO WHERE TIL_ID_TIPO_LIVRO = @idTipoLivro", connection);
-                    sqlQuery.Parameters.Add(new SqlParameter("@idTipoLivro", tipoLivroID));
-
-                    lineaffects = sqlQuery.ExecuteNonQuery();
-
-                    return lineaffects;
+                    //Executando o comando Transact-SQL e retornando a quantidade de linhas afetadas.
+                    liQtdRegistrosInseridos = ioQuery.ExecuteNonQuery();
                 }
-                catch
+                catch (Exception e)
                 {
-                    throw new Exception("Erro em tentar deletar tipo de livro");
+                    throw new Exception("Erro ao tentar atualizar as informações do TipoLivro");
                 }
             }
-
+            return liQtdRegistrosInseridos;
         }
     }
 }

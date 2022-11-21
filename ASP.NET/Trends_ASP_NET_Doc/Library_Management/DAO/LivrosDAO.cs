@@ -1,158 +1,213 @@
-﻿using System;
+﻿using Library_Management.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Library_Management.Models;
+using System.Web;
 
 namespace Library_Management.DAO
 {
-    internal class LivrosDAO
+    public class LivrosDAO
     {
-        private string connectionString = "Data Source=trendsclouddb01\\dev01;Database=treinamento_livraria;User ID=sagresadm;Password=sagresadm";
+        SqlCommand ioQuery;
+        //Instanciando o objeto SqlConnection para abrir a conexão com o banco de dados
+        SqlConnection ioConexao;
 
-
-        public BindingList<Livros> SelectLivros(decimal? livID = null)
+        public BindingList<Livros> BuscaLivros(decimal? liv_id_livro = null)
         {
-            BindingList<Livros> resultQuery = new BindingList<Livros>();
+            //Criando uma lista de Livros que será retornada pela função
+            BindingList<Livros> loListLivros = new BindingList<Livros>();
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            //Criando conexão com o banco de daods, utilizando as informações que foram preenchidas
+            // no Web.config na tag ConnectionStrings e nome ConnectionString
+            using (ioConexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
                 try
                 {
-                    connection.Open();
+                    //Abrindo conexõa com o servidor
+                    ioConexao.Open();
 
-                    SqlCommand sqlQuery;
-
-                    if (livID != null)
+                    if (liv_id_livro != null)
                     {
-                        sqlQuery = new SqlCommand("SELECT * FROM LIV_LIVROS WHERE LIV_ID_LIVRO = @idLivro", connection);
-                        sqlQuery.Parameters.Add(new SqlParameter("@idLivro", livID));
+                        //Montando a query que será executada para retornar o Livro, caso tenha sido passado um ID.
+                        ioQuery = new SqlCommand("SELECT * FROM LIV_LIVROS WHERE LIV_ID_LIVRO = @idLivro", ioConexao);
+
+                        //Criando a variável @idLivro e setando o seu valor com o ID recebido por parâmetro pela função
+                        ioQuery.Parameters.Add(new SqlParameter("@idLivro", liv_id_livro));
                     }
                     else
                     {
-                        sqlQuery = new SqlCommand("SELECT LIV_ID_LIVRO, LIV_ID_TIPO_LIVRO, ISNULL(LIV_ID_EDITOR, 0), LIV_NM_TITULO, ISNULL(LIV_VL_PRECO, 0), LIV_PC_ROYALTY, ISNULL(LIV_DS_RESUMO, 'Vazio'), LIV_NU_EDICAO FROM LIV_LIVROS", connection);
+                        //Caso não seja passado nenhum ID, a query deve retornar todos os Livros
+                        ioQuery = new SqlCommand("SELECT * FROM LIV_LIVROS", ioConexao);
                     }
-
-
-                    using (SqlDataReader reader = sqlQuery.ExecuteReader())
+                    //Criando o bloco de leitura de dados do SQL server
+                    using (SqlDataReader loReader = ioQuery.ExecuteReader())
                     {
-                        while (reader.Read())
+                        //Chamando a função de leitura antes de acessar os dados (uma vez para cada linha retornada na consulta)
+                        while (loReader.Read())
                         {
-                            
-                            
-                            Livros tempLiv = new Livros(reader.GetDecimal(0), reader.GetDecimal(1), reader.GetDecimal(2), reader.GetString(3), reader.GetDecimal(4), reader.GetDecimal(5), reader.GetString(6), reader.GetInt32(7));
+                            //Instanciando um objeto do tipo Livro e preenchendo suas propriedades com os valores retornados pela consulta
+                            Livros loNovoLivro = new Livros (loReader.GetDecimal(0), loReader.GetDecimal(1), loReader.GetDecimal(2), 
+                                loReader.GetString(3), loReader.GetDecimal(4), loReader.GetDecimal(5), loReader.GetString(6), 
+                                loReader.GetInt16(7));
 
-                            resultQuery.Add(tempLiv);
+                            //Incluindo Livro na lista criada anteriormente
+                            loListLivros.Add(loNovoLivro);
                         }
-
-                        connection.Close();
+                        //fechando objeto de leitura
+                        loReader.Close();
                     }
                 }
                 catch
                 {
-                    throw new Exception("Erro em tentar buscar os livros");
+                    throw new Exception("Erro ao tentar buscar o(s) livro(s)");
                 }
             }
-
-
-            return resultQuery;
+            return loListLivros;
         }
 
-        public decimal InsertLivro(Livros newLivro)
+        public int InsereLivro(Livros aoNovoLivro)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            //Caso o Livro não venha preenchido, é lançada uma exceção do tipo NullReferenceException
+            if (aoNovoLivro == null)
+                throw new NullReferenceException();
+
+            int liQtdRegistrosInseridos = 0;
+
+            using (ioConexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
                 try
                 {
-                    connection.Open();
+                    ioConexao.Open();
+                    ioQuery = new SqlCommand("INSERT INTO LIV_LIVROS(LIV_ID_LIVRO, LIV_ID_TIPO_LIVRO, LIV_ID_EDITOR, LIV_NM_TITULO," +
+                        " LIV_VL_PRECO, LIV_PC_ROYALTY, LIV_DS_RESUMO, LIV_NU_EDICAO) VALUES(@idLivro, @idTipoLivro, @idEditor, " +
+                        "@nomeTitulo, @valorPreco, @pcRoyalty, @dsResumo, @edicaoLivro)", ioConexao);
+                    ioQuery.Parameters.Add(new SqlParameter("@idLivro", aoNovoLivro.liv_id_livro));
+                    ioQuery.Parameters.Add(new SqlParameter("@idTipoLivro", aoNovoLivro.liv_id_tipo_livro));
+                    ioQuery.Parameters.Add(new SqlParameter("@idEditor", aoNovoLivro.liv_id_editor));
+                    ioQuery.Parameters.Add(new SqlParameter("@nomeTitulo", aoNovoLivro.liv_nm_titulo));
+                    ioQuery.Parameters.Add(new SqlParameter("@valorPreco", aoNovoLivro.liv_vl_preco));
+                    ioQuery.Parameters.Add(new SqlParameter("@pcRoyalty", aoNovoLivro.liv_pc_royalty));
+                    ioQuery.Parameters.Add(new SqlParameter("@dsResumo", aoNovoLivro.liv_ds_resumo));
+                    ioQuery.Parameters.Add(new SqlParameter("@edicaoLivro", aoNovoLivro.liv_nu_edicao));
 
-                    decimal idResult;
-
-                    SqlCommand sqlQuery = new SqlCommand("INSERT INTO LIV_LIVROS(LIV_ID_LIVRO, LIV_ID_TIPO_LIVRO, LIV_ID_EDITOR, LIV_NM_TITULO, LIV_VL_PRECO, LIV_PC_ROYALTY, LIV_DS_RESUMO, LIV_NU_EDICAO) " +
-                        "VALUES(@idLivro, @idTipoLivro, @idEditor, @titulo, @preco, @royalty, @resumo, @edicao)", connection);
-
-                    sqlQuery.Parameters.Add(new SqlParameter("@idLivro", newLivro.liv_id_livro));
-                    sqlQuery.Parameters.Add(new SqlParameter("@idTipoLivro", newLivro.liv_id_tipo_livro));
-                    sqlQuery.Parameters.Add(new SqlParameter("@idEditor", newLivro.liv_id_editor));
-                    sqlQuery.Parameters.Add(new SqlParameter("@titulo", newLivro.liv_nm_titulo));
-                    sqlQuery.Parameters.Add(new SqlParameter("@preco", newLivro.liv_vl_preco));
-                    sqlQuery.Parameters.Add(new SqlParameter("@royalty", newLivro.liv_pc_royalty));
-                    sqlQuery.Parameters.Add(new SqlParameter("@resumo", newLivro.liv_ds_resumo));
-                    sqlQuery.Parameters.Add(new SqlParameter("@edicao", newLivro.liv_nu_edicao));
-
-                    sqlQuery.ExecuteNonQuery();
-
-                    idResult = newLivro.liv_id_livro;
-
-                    return idResult;
-
+                    //Executando o comando Transact-SQL e retornando a quantidade de linhas afetadas.
+                    liQtdRegistrosInseridos = ioQuery.ExecuteNonQuery();
                 }
-                catch
+                catch (Exception e)
                 {
-                    throw new Exception("Erro em tentar inserir novo livro");
+                    throw new Exception("Erro ao tentar cadastrar novo Livro");
                 }
             }
+            return liQtdRegistrosInseridos;
         }
 
-        public int UpdateLivro(Livros newLivro)
+        public int RemoveLivro(Livros aoLivro)
         {
+            if (aoLivro == null)
+                throw new ArgumentNullException();
 
-            int lineaffects;
+            int liQtdRegistrosInseridos = 0;
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (ioConexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
                 try
                 {
-                    connection.Open();
+                    ioConexao.Open();
+                    ioQuery = new SqlCommand("DELETE FROM LIV_LIVROS WHERE LIV_ID_LIVRO = @idLivro", ioConexao);
+                    ioQuery.Parameters.Add(new SqlParameter("@idLivro", aoLivro.liv_id_livro));
 
-                    SqlCommand sqlQuery = new SqlCommand("UPDATE LIV_LIVROS SET LIV_ID_TIPO_LIVRO = @idTipoLivro, LIV_ID_EDITOR = @idEditor, LIV_NM_TITULO = @titulo, LIV_VL_PRECO = @preco, LIV_PC_ROYALTY = @royalty, LIV_DS_RESUMO = @resumo, LIV_NU_EDICAO = @edicao WHERE LIV_ID_LIVRO = @idLivro", connection);
-
-                    sqlQuery.Parameters.Add(new SqlParameter("@idLivro", newLivro.liv_id_livro));
-                    sqlQuery.Parameters.Add(new SqlParameter("@idTipoLivro", newLivro.liv_id_tipo_livro));
-                    sqlQuery.Parameters.Add(new SqlParameter("@idEditor", newLivro.liv_id_editor));
-                    sqlQuery.Parameters.Add(new SqlParameter("@titulo", newLivro.liv_nm_titulo));
-                    sqlQuery.Parameters.Add(new SqlParameter("@preco", newLivro.liv_vl_preco));
-                    sqlQuery.Parameters.Add(new SqlParameter("@royalty", newLivro.liv_pc_royalty));
-                    sqlQuery.Parameters.Add(new SqlParameter("@resumo", newLivro.liv_ds_resumo));
-                    sqlQuery.Parameters.Add(new SqlParameter("@edicao", newLivro.liv_nu_edicao));
-
-                    lineaffects = sqlQuery.ExecuteNonQuery();
-
-                    return lineaffects;
+                    //Executando o comando Transact-SQL e retornando a quantidade de linhas afetadas.
+                    liQtdRegistrosInseridos = ioQuery.ExecuteNonQuery();
                 }
-                catch
+                catch (Exception e)
                 {
-                    throw new Exception("Erro em tentar atualizar livro");
+                    throw new Exception("Erro ao tentar excluir Livro");
                 }
             }
+            return liQtdRegistrosInseridos;
         }
 
-        public int DeleteLivro(decimal livID)
+        public int AtualizaLivro(Livros aoLivro)
         {
-            int lineaffects;
+            if (aoLivro == null)
+                throw new ArgumentNullException();
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            int liQtdRegistrosInseridos = 0;
+
+            using (ioConexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
                 try
                 {
-                    connection.Open();
+                    ioConexao.Open();
+                    ioQuery = new SqlCommand("UPDATE LIV_LIVROS SET LIV_ID_TIPO_LIRVRO = @idTipoLivro, LIV_ID_EDITOR = @idEditor, " +
+                        "LIV_NM_TITULO = @nomeTitulo, LIV_VL_PRECO = @valorPreco, LIV_PC_ROYALTY = @pcRoyalty, LIV_DS_RESUMO = @dsResumo" +
+                        ", LIV_NU_EDICAO = @edicaoLivro WHERE LIV_ID_LIVRO = @idLivro", ioConexao);
+                    ioQuery.Parameters.Add(new SqlParameter("@idLivro", aoLivro.liv_id_livro));
 
-                    SqlCommand sqlQuery = new SqlCommand("DELETE FROM LIV_LIVROS WHERE LIV_ID_LIVRO = @idLivro", connection);
-                    sqlQuery.Parameters.Add(new SqlParameter("@idLivro", livID));
-
-                    lineaffects = sqlQuery.ExecuteNonQuery();
-
-                    return lineaffects;
+                    //Executando o comando Transact-SQL e retornando a quantidade de linhas afetadas.
+                    liQtdRegistrosInseridos = ioQuery.ExecuteNonQuery();
                 }
-                catch
+                catch (Exception e)
                 {
-                    throw new Exception("Erro em tentar deletar livro");
+                    throw new Exception("Erro ao tentar atualizar informações do Livro");
                 }
             }
+            return liQtdRegistrosInseridos;
+        }
 
+        public BindingList<Livros> FindLivrosByAutor(Autores aoAutor)
+        {
+            //Criando uma lista de Livros que será retornada pela função
+            BindingList<Livros> loListLivros = new BindingList<Livros>();
+
+            //Caso o Autor não venha preenchido, é lançada uma exceção do tipo NullReferenceException
+            if (aoAutor == null)
+                throw new NullReferenceException();
+
+            using (ioConexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"]
+                .ConnectionString))
+            {
+                try
+                {
+                    ioConexao.Open();
+
+                    //Montando a query que será executada para retornar o Livro, caso tenha sido passado um ID.
+                    ioQuery = new SqlCommand("SELECT * FROM LIV_LIVROS livros" +
+                         "INNER JOIN LIA_LIVRO_AUTOR livroAutor ON livros.liv_id_livro = livroAutor.lia_id_livro" +
+                         "INNER JOIN AUT_AUTORES autores ON livroAutro.lia_id_autor = autores.aut_id_autor" +
+                         "WHERE autores.aut_id_autor = @idAutor"
+                         , ioConexao);
+
+                    //Criando a variável @idLivro e setando o seu valor com o ID recebido por parâmetro pela função
+                    ioQuery.Parameters.Add(new SqlParameter("@idAutor", aoAutor.aut_id_autor));
+
+                    //Criando o bloco de leitura de dados do SQL server
+                    using (SqlDataReader loReader = ioQuery.ExecuteReader())
+                    {
+                        //Chamando a função de leitura antes de acessar os dados (uma vez para cada linha retornada na consulta)
+                        while (loReader.Read())
+                        {
+                            //Instanciando um objeto do tipo Livro e preenchendo suas propriedades com os valores retornados pela consulta
+                            Livros loNovoLivro = new Livros(loReader.GetDecimal(0), loReader.GetDecimal(1), loReader.GetDecimal(2),
+                                loReader.GetString(3), loReader.GetDecimal(4), loReader.GetDecimal(5), loReader.GetString(6),
+                                loReader.GetInt16(7));
+
+                            //Incluindo Livro na lista criada anteriormente
+                            loListLivros.Add(loNovoLivro);
+                        }
+                        //fechando objeto de leitura
+                        loReader.Close();
+                    }
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Erro ao tentar localizar Livros do Autor");
+                }
+            }
+            return loListLivros;
         }
     }
 }
