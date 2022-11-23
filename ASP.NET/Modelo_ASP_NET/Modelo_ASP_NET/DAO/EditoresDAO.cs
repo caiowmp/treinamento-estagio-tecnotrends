@@ -15,7 +15,7 @@ namespace Modelo_ASP_NET.DAO
 
         SqlConnection ioConexao;
 
-        Editores loEditor;
+        Editores loEditor = new Editores(-1, "vazio", "vazio", "vazio");
 
         public Editores BuscaEditorNome(string edi_nm_editor)
         {

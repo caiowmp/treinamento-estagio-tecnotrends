@@ -124,23 +124,39 @@ namespace Modelo_ASP_NET.Livraria
         {
             decimal ldcIdLivro = Convert.ToDecimal((this.gvGerenciamentoLivros.Rows[e.RowIndex].FindControl("lblEditIdLivro") as Label).Text);
 
-            string lsNomeIdTipoLivro = (this.gvGerenciamentoLivros.Rows[e.RowIndex].FindControl("tbxEditIDCategoriaLivro") as TextBox).Text;
-            decimal ldcIdTipoLivro = ioTipoLivroDAO.BuscaTipoLivroPorNome(lsNomeIdTipoLivro).til_id_tipo_livro;
-            if (ioTipoLivroDAO.BuscaTipoLivro(ldcIdTipoLivro).Count == 0)
+            decimal ldcIdTipoLivro;
+            string lsNomeCategoria = (this.gvGerenciamentoLivros.Rows[e.RowIndex].FindControl("tbxEditCategoriaLivro") as TextBox).Text;
+            if (ioTipoLivroDAO.BuscaTipoLivroPorNome(lsNomeCategoria).til_id_tipo_livro != -1)
+            {
+                ldcIdTipoLivro = ioTipoLivroDAO.BuscaTipoLivroPorNome(lsNomeCategoria).til_id_tipo_livro;
+                if (ioTipoLivroDAO.BuscaTipoLivro(ldcIdTipoLivro).Count == 0)
+                    ldcIdTipoLivro = -1;
+            }
+            else
+            {
                 ldcIdTipoLivro = -1;
+            }
 
-            string lsNomeIdEditorLivro = (this.gvGerenciamentoLivros.Rows[e.RowIndex].FindControl("tbxEditIDEditorLivro") as Label).Text;
-            decimal ldcIdEditorLivro = ioEditoresDAO.BuscaEditorNome(lsNomeIdEditorLivro).edi_id_editores;
-            if (ioEditoresDAO.BuscaEditores(ldcIdEditorLivro).Count == 0)
+            decimal ldcIdEditorLivro;
+            string lsNomeEditor = (this.gvGerenciamentoLivros.Rows[e.RowIndex].FindControl("tbxEditEditorLivro") as TextBox).Text;
+            if (ioEditoresDAO.BuscaEditorNome(lsNomeEditor).edi_id_editores != -1)
+            {
+                ldcIdEditorLivro = ioEditoresDAO.BuscaEditorNome(lsNomeEditor).edi_id_editores;
+                if (ioEditoresDAO.BuscaEditores(ldcIdEditorLivro).Count == 0)
+                    ldcIdEditorLivro = -1;
+            }
+            else
+            {
                 ldcIdEditorLivro = -1;
+            }
+            
 
             string lsTituloLivro = (this.gvGerenciamentoLivros.Rows[e.RowIndex].FindControl("tbxEditTituloLivro") as TextBox).Text;
             string lsResumoLivro = (this.gvGerenciamentoLivros.Rows[e.RowIndex].FindControl("tbxEditResumoLivro") as TextBox).Text;
             decimal ldcPrecoLivro = Convert.ToDecimal((this.gvGerenciamentoLivros.Rows[e.RowIndex].FindControl("tbxEditPrecoLivro") as TextBox).Text);
             decimal ldcRoyaltyLivro = Convert.ToDecimal((this.gvGerenciamentoLivros.Rows[e.RowIndex].FindControl("tbxEditRoyaltyLivro") as TextBox).Text);
             int liNuEdicaoLivro = Convert.ToInt32((this.gvGerenciamentoLivros.Rows[e.RowIndex].FindControl("tbxEditNuEdicaoLivro") as TextBox).Text);
-            string lsNomeEditor = (this.gvGerenciamentoLivros.Rows[e.RowIndex].FindControl("tbxEditEditorLivro") as TextBox).Text;
-            string lsNomeCategoria = (this.gvGerenciamentoLivros.Rows[e.RowIndex].FindControl("tbxEditCatergoriaLivro") as TextBox).Text;
+            
 
             if (String.IsNullOrWhiteSpace(lsNomeCategoria))
                 HttpContext.Current.Response.Write("<script>alert('Digite a categoria do livro.');</script>");

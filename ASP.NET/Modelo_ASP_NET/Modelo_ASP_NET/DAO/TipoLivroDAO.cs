@@ -17,7 +17,7 @@ namespace Modelo_ASP_NET.DAO
 
         public TipoLivro BuscaTipoLivroPorNome(string til_ds_descricao)
         {
-            TipoLivro loTipoLivro = new TipoLivro(0,"asdasd");
+            TipoLivro loTipoLivro = new TipoLivro(-1, "vazio");
 
             using (ioConexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {

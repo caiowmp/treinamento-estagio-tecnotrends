@@ -112,17 +112,25 @@ namespace Modelo_ASP_NET.Livraria
                 GridViewRow loRGridViewRow = this.gvGerenciamentoCategorias.Rows[e.RowIndex];
                 decimal ldcIdCategoria = Convert.ToDecimal((this.gvGerenciamentoCategorias.Rows[e.RowIndex].FindControl("lblIdCategoria") as Label).Text);
                 TipoLivro loTipoLivro = this.ioTipoLivroDAO.BuscaTipoLivro(ldcIdCategoria).FirstOrDefault();
+                LivrosDAO loLivrosDAO = new LivrosDAO();
 
-                if (loTipoLivro != null)
+                if(loLivrosDAO.BuscaLivrosCategoria(ldcIdCategoria).Count == 0)
                 {
-                    TipoLivroDAO loTipoLivroDAO = new TipoLivroDAO();
-
-                    if (loTipoLivroDAO.BuscaTipoLivro(ldcIdCategoria).Count != 0)
+                    if (loTipoLivro != null)
                     {
-                        this.ioTipoLivroDAO.RemoveTiopoLivro(loTipoLivro);
-                        this.CarregaDados();
-                        HttpContext.Current.Response.Write("<script>alert('Categoria removida com sucesso!');</script>");
+                        TipoLivroDAO loTipoLivroDAO = new TipoLivroDAO();
+
+                        if (loTipoLivroDAO.BuscaTipoLivro(ldcIdCategoria).Count != 0)
+                        {
+                            this.ioTipoLivroDAO.RemoveTiopoLivro(loTipoLivro);
+                            this.CarregaDados();
+                            HttpContext.Current.Response.Write("<script>alert('Categoria removida com sucesso!');</script>");
+                        }
                     }
+                }
+                else
+                {
+                    HttpContext.Current.Response.Write("<script>alert('Erro na remoção da categoria selecionada. Existe(m) livro(s) associado(s) à categoria');</script>");
                 }
             }
             catch

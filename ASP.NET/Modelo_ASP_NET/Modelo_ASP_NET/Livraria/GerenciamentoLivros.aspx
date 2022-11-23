@@ -176,7 +176,7 @@
                 <%-- Título Livro --%>
                 <asp:TemplateField>
                     <EditItemTemplate>
-                        <asp:TextBox ID="tbxEditTituiloLivro" runat="server" CssClass="form-control" Heigh="35px"
+                        <asp:TextBox ID="tbxEditTituloLivro" runat="server" CssClass="form-control" Heigh="35px"
                             MaxLength="15" Text='<%# Eval("liv_nm_titulo") %>'></asp:TextBox>
                     </EditItemTemplate>
 

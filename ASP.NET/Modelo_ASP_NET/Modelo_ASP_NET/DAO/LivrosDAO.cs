@@ -16,6 +16,41 @@ namespace Modelo_ASP_NET.DAO
 
         SqlConnection ioConexao;
 
+        public BindingList<Livros> BuscaLivrosCategoria(decimal id_categoria)
+        {
+            BindingList<Livros> loListLivros = new BindingList<Livros>();
+
+            using (ioConexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
+            {
+                try
+                {
+                    ioConexao.Open();
+
+                    ioQuery = new SqlCommand("SELECT LIV_ID_LIVRO, LIV_ID_TIPO_LIVRO, ISNULL(LIV_ID_EDITOR, -1), LIV_NM_TITULO, ISNULL(LIV_VL_PRECO, -1), LIV_PC_ROYALTY, ISNULL(LIV_DS_RESUMO, 'vazio'), LIV_NU_EDICAO, ISNULL(EDI_NM_EDITOR,'editor não informado'), ISNULL(TIL_DS_DESCRICAO, 'categoria não informada') FROM LIV_LIVROS LEFT JOIN TIL_TIPO_LIVRO ON TIL_ID_TIPO_LIVRO = LIV_ID_TIPO_LIVRO LEFT JOIN EDI_EDITORES ON LIV_ID_EDITOR = EDI_ID_EDITOR WHERE LIV_ID_TIPO_LIVRO = @idCategoria", ioConexao);
+                    ioQuery.Parameters.Add(new SqlParameter("@idCategoria", id_categoria));
+
+                    using (SqlDataReader loReader = ioQuery.ExecuteReader())
+                    {
+                        while (loReader.Read())
+                        {
+                            Livros loNovoLivro = new Livros(loReader.GetDecimal(0), loReader.GetDecimal(1), loReader.GetDecimal(2), loReader.GetString(3), loReader.GetDecimal(4),
+                                                            loReader.GetDecimal(5), loReader.GetString(6), loReader.GetInt32(7), loReader.GetString(8), loReader.GetString(9));
+
+                            loListLivros.Add(loNovoLivro);
+                        }
+
+                        loReader.Close();
+                    }
+                }
+                catch
+                {
+                    throw new Exception("Erro ao tentar buscar o(s) livro(s) da Categoria");
+                }
+            }
+            return loListLivros;
+        }
+    
+
         public BindingList<Livros> BuscaLivrosEditor(Editores editor)
         {
             BindingList<Livros> loListLivros = new BindingList<Livros>();
@@ -169,10 +204,16 @@ namespace Modelo_ASP_NET.DAO
                 try
                 {
                     ioConexao.Open();
-                    ioQuery = new SqlCommand("UPDATE LIV_LIVROS SET LIV_ID_TIPO_LIRVRO = @idTipoLivro, LIV_ID_EDITOR = @idEditor, LIV_NM_TITULO = @nomeTitulo, LIV_VL_PRECO = @valorPreco, LIV_PC_ROYALTY = @pcRoyalty, LIV_DS_RESUMO = @dsResumo, LIV_NU_EDICAO = @edicaoLivro WHERE LIV_ID_LIVRO = @idLivro", ioConexao);
+                    ioQuery = new SqlCommand("UPDATE LIV_LIVROS SET LIV_ID_TIPO_LIVRO = @idTipoLivro, LIV_ID_EDITOR = @idEditor, LIV_NM_TITULO = @nomeTitulo, LIV_VL_PRECO = @valorPreco, LIV_PC_ROYALTY = @pcRoyalty, LIV_DS_RESUMO = @dsResumo, LIV_NU_EDICAO = @edicaoLivro WHERE LIV_ID_LIVRO = @idLivro", ioConexao);
                     ioQuery.Parameters.Add(new SqlParameter("@idLivro", aoLivro.liv_id_livro));
+                    ioQuery.Parameters.Add(new SqlParameter("@idTipoLivro", aoLivro.liv_id_tipo_livro));
+                    ioQuery.Parameters.Add(new SqlParameter("@idEditor", aoLivro.liv_id_editor));
+                    ioQuery.Parameters.Add(new SqlParameter("@nomeTitulo", aoLivro.liv_nm_titulo));
+                    ioQuery.Parameters.Add(new SqlParameter("@valorPreco", aoLivro.liv_vl_preco));
+                    ioQuery.Parameters.Add(new SqlParameter("@pcRoyalty", aoLivro.liv_pc_royalty));
+                    ioQuery.Parameters.Add(new SqlParameter("@dsResumo", aoLivro.liv_ds_resumo));
+                    ioQuery.Parameters.Add(new SqlParameter("@edicaoLivro", aoLivro.liv_nu_edicao));
 
-                    //Executando o comando Transact-SQL e retornando a quantidade de linhas afetadas.
                     liQtdRegistrosInseridos = ioQuery.ExecuteNonQuery();
                 }
                 catch (Exception e)
