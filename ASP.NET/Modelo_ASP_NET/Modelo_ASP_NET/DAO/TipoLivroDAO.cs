@@ -163,21 +163,19 @@ namespace Modelo_ASP_NET.DAO
 
             using (ioConexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
-                try
-                {
+                //try
+                //{
                     ioConexao.Open();
-                    ioQuery = new SqlCommand("UPDATE FROM TIL_TIPO_LIVRO SET TIL_ID_TIPO_LIVRO = @idTipoLivro, " +
-                        "TIL_DS_DESCRICAO = @dsDescricao WHERE TIL_ID_TIPO_LIVRO = @idTipoLivro", ioConexao);
+                    ioQuery = new SqlCommand("UPDATE TIL_TIPO_LIVRO SET TIL_DS_DESCRICAO = @dsDescricao WHERE TIL_ID_TIPO_LIVRO = @idTipoLivro", ioConexao);
                     ioQuery.Parameters.Add(new SqlParameter("@idTipoLivro", aoTipoLivro.til_id_tipo_livro));
                     ioQuery.Parameters.Add(new SqlParameter("@dsDescricao", aoTipoLivro.til_ds_descricao));
 
-                    //Executando o comando Transact-SQL e retornando a quantidade de linhas afetadas.
                     liQtdRegistrosInseridos = ioQuery.ExecuteNonQuery();
-                }
+                /*}
                 catch (Exception e)
                 {
                     throw new Exception("Erro ao tentar atualizar as informações do TipoLivro");
-                }
+                }*/
             }
             return liQtdRegistrosInseridos;
         }

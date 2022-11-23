@@ -11,13 +11,13 @@
             <tr style="display: grid;">
                 <%--Cadastro nome Categoria--%>
                 <td>
-                    <asp:Label ID="lblCadastroNomeCategoria" runat="server" Font-Size="16pt" Text="Descrição: "></asp:Label>
+                    <asp:Label ID="lblCadastroNomeCategoria" runat="server" Font-Size="16pt" Text="Nome: "></asp:Label>
                 </td>
                 <td>
                     <asp:TextBox ID="tbxCadastroNomeCategoria" runat="server" CssClass="form-control" Height="35px"
                         Width="400px"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
-                        ControlToValidate="tbxCadastroTituiloLivro" Style="color: red;" 
+                        ControlToValidate="tbxCadastroNomeCategoria" Style="color: red;" 
                         ErrorMessage="* Digite o nome da categoria."></asp:RequiredFieldValidator>
                 </td>
 
@@ -72,7 +72,7 @@
 
                     <ItemTemplate>
                         <asp:Label ID="lblNomeCategoria" runat="server" Style="text-align: left;"
-                        Text='<%# Eval("liv_ds_descricao") %>'></asp:Label>
+                        Text='<%# Eval("til_ds_descricao") %>'></asp:Label>
                     </ItemTemplate>
 
                     <HeaderStyle HorizontalAlign="Left" Width="150px" />

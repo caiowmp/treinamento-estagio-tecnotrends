@@ -111,7 +111,6 @@ namespace Modelo_ASP_NET.DAO
                     ioQuery = new SqlCommand("DELETE FROM EDI_EDITORES WHERE EDI_ID_EDITOR = @idEditor", ioConexao);
                     ioQuery.Parameters.Add(new SqlParameter("@idEditor", aoEditor.edi_id_editores));
 
-                    //Executando o comando Transact-SQL e retornando a quantidade de linhas afetadas.
                     liQtdRegistrosInseridos = ioQuery.ExecuteNonQuery();
                 }
                 catch (Exception e)

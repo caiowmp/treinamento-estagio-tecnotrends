@@ -44,6 +44,14 @@
                         ErrorMessage="* Digite o Url do editor."></asp:RequiredFieldValidator>
                 </td>
 
+                <td>
+                    <asp:Button ID="btnNovoEditor" runat="server" CssClass="btn btn-sucess" Style="margin-top: 10px"
+                        Text="Salvar" OnClick="BtnNovoEditor_Click" />
+                </td>
+            </tr>
+        </table>
+    </div>
+
     <%-- Listagem de Editores--%>
     <div class="row">
         <h2 style="text-align: center;">Lista de editores cadastrados</h2>
