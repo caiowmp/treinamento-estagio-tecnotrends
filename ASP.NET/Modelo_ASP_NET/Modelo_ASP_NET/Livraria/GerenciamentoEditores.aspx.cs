@@ -125,12 +125,22 @@ namespace Modelo_ASP_NET.Livraria
 
                 if (loEditor != null)
                 {
-                    EditoresDAO loEditoresDAO = new EditoresDAO();
+                    LivrosDAO loLivrosDAO = new LivrosDAO();
 
-                    if (loEditoresDAO.BuscaEditores(ldcIdEditor).Count != 0)
+                    if(loLivrosDAO.BuscaLivrosEditor(loEditor).Count == 0)
                     {
-                        this.ioEditoresDAO.RemoveEditor(loEditor);
-                        this.CarregaDados();
+                        EditoresDAO loEditoresDAO = new EditoresDAO();
+
+                        if (loEditoresDAO.BuscaEditores(ldcIdEditor).Count != 0)
+                        {
+                            this.ioEditoresDAO.RemoveEditor(loEditor);
+                            this.CarregaDados();
+                            HttpContext.Current.Response.Write("<script>alert('Editor removido com sucesso!');</script>");
+                        }
+                    }
+                    else
+                    {
+                        HttpContext.Current.Response.Write("<script>alert('Erro na remoção do editor selecionado. Existem livros associados a ele');</script>");
                     }
                 }
             }

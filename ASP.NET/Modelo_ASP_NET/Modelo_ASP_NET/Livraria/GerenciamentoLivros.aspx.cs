@@ -12,22 +12,17 @@ namespace Modelo_ASP_NET.Livraria
 {
     public partial class GerenciamentoLivros : System.Web.UI.Page
     {
-        //Criando uma variável de instância de LivrosDAO (para não rpecisar instanciar uma sempre que
-        // for usar).
         LivrosDAO ioLivrosDAO = new LivrosDAO();
         TipoLivroDAO ioTipoLivroDAO = new TipoLivroDAO();
         EditoresDAO ioEditoresDAO = new EditoresDAO();
 
-        //Utilizando uma ViewState, como uma porpriedade privada de classe, para armazenar a lista de 
-        // Livros cadastrados.
         public BindingList<Livros> ListaLivros
         {
             get
             {
-                //Caso a ViewState esteja vazia, chama o método CarregaDados() para preencher os Livros.
                 if ((BindingList<Livros>)ViewState["ViewStateListaLivros"] == null)
                     this.CarregaDados();
-                //Retorna o conteúdo da ViewState
+
                 return (BindingList<Livros>)ViewState["ViewStateListaLivros"];
             }
             set
@@ -37,7 +32,6 @@ namespace Modelo_ASP_NET.Livraria
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            //Se o comando de carregamento da página não vier de um dos controles dela, execute o método CarregaDados().
             if (!this.IsPostBack)
                 this.CarregaDados();
         }
@@ -46,11 +40,10 @@ namespace Modelo_ASP_NET.Livraria
         {
             try
             {
-                // Chamando o método BuscaLivros para salvar os Livros cadastrados na ViewState
                 this.ListaLivros = this.ioLivrosDAO.BuscaLivros();
-                //Indicando onde o GridView deve buscar os valores que serão listados
+
                 this.gvGerenciamentoLivros.DataSource = this.ListaLivros.OrderBy(loLivro => loLivro.liv_nm_titulo);
-                //Populando o GridView com os dados de ListaLivros
+
                 this.gvGerenciamentoLivros.DataBind();
             }
             catch
@@ -74,16 +67,13 @@ namespace Modelo_ASP_NET.Livraria
                 string lsNomeEditor = this.tbxCadastroEditorLivro.Text;
                 string lsNomeCategoria = this.tbxCadastroCategoriaLivro.Text;
 
-                //Verifica se o idTipoLivro existe. Caso contrário cria               
                 decimal ldcIdTipoLivro = Convert.ToDecimal(this.tbxCadastroCategoriaLivro.Text);
                 if (ioTipoLivroDAO.BuscaTipoLivro(ldcIdTipoLivro).Count == 0)
                 {
                     TipoLivroDAO auxTipoLivroDao = new TipoLivroDAO();
                     auxTipoLivroDao.InsereTipoLivro(new TipoLivro(ldcIdTipoLivro, lsNomeCategoria));
                 }
-                    
 
-                //Verifica se o idEditorLivro existe. Caso contrário seta como -1                
                 decimal ldcIdEditorLivro = Convert.ToDecimal(this.tbxCadastroEditorLivro.Text);
                 if (ioEditoresDAO.BuscaEditores(ldcIdEditorLivro).Count == 0)
                 {
@@ -97,8 +87,8 @@ namespace Modelo_ASP_NET.Livraria
                 this.ioLivrosDAO.InsereLivro(loLivro);
 
                 LivroAutorDAO aux = new LivroAutorDAO();
-                
-                //aux.InsereLivroAutor(new LivroAutor())
+
+                //aux.InsereLivroAutor(new LivroAutor(ldcIdAutor, ldcIdLivro, ldcRoyaltyLivro));
 
                 this.CarregaDados();
                 HttpContext.Current.Response.Write("<script>alert('Livro cadastrado com sucesso!'); </script>");
@@ -134,11 +124,13 @@ namespace Modelo_ASP_NET.Livraria
         {
             decimal ldcIdLivro = Convert.ToDecimal((this.gvGerenciamentoLivros.Rows[e.RowIndex].FindControl("lblEditIdLivro") as Label).Text);
 
-            decimal ldcIdTipoLivro = Convert.ToDecimal((this.gvGerenciamentoLivros.Rows[e.RowIndex].FindControl("lblEditIdTipoLivro") as Label).Text);
+            string lsNomeIdTipoLivro = (this.gvGerenciamentoLivros.Rows[e.RowIndex].FindControl("tbxEditIDCategoriaLivro") as TextBox).Text;
+            decimal ldcIdTipoLivro = ioTipoLivroDAO.BuscaTipoLivroPorNome(lsNomeIdTipoLivro).til_id_tipo_livro;
             if (ioTipoLivroDAO.BuscaTipoLivro(ldcIdTipoLivro).Count == 0)
                 ldcIdTipoLivro = -1;
 
-            decimal ldcIdEditorLivro = Convert.ToDecimal((this.gvGerenciamentoLivros.Rows[e.RowIndex].FindControl("lblEditIdEditorLivro") as Label).Text);
+            string lsNomeIdEditorLivro = (this.gvGerenciamentoLivros.Rows[e.RowIndex].FindControl("tbxEditIDEditorLivro") as Label).Text;
+            decimal ldcIdEditorLivro = ioEditoresDAO.BuscaEditorNome(lsNomeIdEditorLivro).edi_id_editores;
             if (ioEditoresDAO.BuscaEditores(ldcIdEditorLivro).Count == 0)
                 ldcIdEditorLivro = -1;
 

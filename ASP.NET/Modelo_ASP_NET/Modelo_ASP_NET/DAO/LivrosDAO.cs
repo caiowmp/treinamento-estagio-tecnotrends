@@ -13,37 +13,66 @@ namespace Modelo_ASP_NET.DAO
     public class LivrosDAO
     {
         SqlCommand ioQuery;
-        //Instanciando o objeto SqlConnection para abrir a conexão com o banco de dados
+
         SqlConnection ioConexao;
 
-        public BindingList<Livros> BuscaLivros(decimal? liv_id_livro = null)
+        public BindingList<Livros> BuscaLivrosEditor(Editores editor)
         {
-            //Criando uma lista de Livros que será retornada pela função
             BindingList<Livros> loListLivros = new BindingList<Livros>();
 
-            //Criando conexão com o banco de daods, utilizando as informações que foram preenchidas
-            // no Web.config na tag ConnectionStrings e nome ConnectionString
             using (ioConexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
                 try
                 {
-                    //Abrindo conexõa com o servidor
+                    ioConexao.Open();
+
+                    ioQuery = new SqlCommand("SELECT LIV_ID_LIVRO, LIV_ID_TIPO_LIVRO, LIV_ID_EDITOR, LIV_NM_TITULO, ISNULL(LIV_VL_PRECO, -1), LIV_PC_ROYALTY, ISNULL(LIV_DS_RESUMO, 'vazio'), LIV_NU_EDICAO, ISNULL(TIL_DS_DESCRICAO, 'categoria não informada'), ISNULL(EDI_NM_EDITOR,'editor não informado') FROM LIV_LIVROS LEFT JOIN TIL_TIPO_LIVRO ON TIL_ID_TIPO_LIVRO = LIV_ID_LIVRO LEFT JOIN EDI_EDITORES ON LIV_ID_EDITOR = EDI_ID_EDITOR WHERE LIV_ID_EDITOR = @idEditor", ioConexao);
+
+                    ioQuery.Parameters.Add(new SqlParameter("@idEditor", editor.edi_id_editores));
+
+                    using (SqlDataReader loReader = ioQuery.ExecuteReader())
+                    {
+                        while (loReader.Read())
+                        {
+                            Livros loNovoLivro = new Livros(loReader.GetDecimal(0), loReader.GetDecimal(1), loReader.GetDecimal(2), loReader.GetString(3), loReader.GetDecimal(4),
+                                                            loReader.GetDecimal(5), loReader.GetString(6), loReader.GetInt32(7), loReader.GetString(8), loReader.GetString(9));
+
+                            loListLivros.Add(loNovoLivro);
+                        }
+
+                        loReader.Close();
+                    }
+                }
+                catch
+                {
+                    throw new Exception("Erro ao tentar buscar o(s) livro(s) do Editor");
+                }
+            }
+            return loListLivros;
+        }
+    
+
+        public BindingList<Livros> BuscaLivros(decimal? liv_id_livro = null)
+        {
+            BindingList<Livros> loListLivros = new BindingList<Livros>();
+
+            using (ioConexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
+            {
+                try
+                {
                     ioConexao.Open();
 
                     if (liv_id_livro != null)
                     {
-                        //Montando a query que será executada para retornar o Livro, caso tenha sido passado um ID.
-                        ioQuery = new SqlCommand("SELECT LIV_ID_LIVRO, LIV_ID_TIPO_LIVRO, ISNULL(LIV_ID_EDITOR, -1), LIV_NM_TITULO, ISNULL(LIV_VL_PRECO, -1), LIV_PC_ROYALTY, ISNULL(LIV_DS_RESUMO, 'vazio'), LIV_NU_EDICAO, ISNULL(TIL_DS_DESCRICAO, 'categoria não informada'), ISNULL(EDI_NM_EDITOR,'editor não informado') FROM LIV_LIVROS LEFT JOIN TIL_TIPO_LIVRO ON TIL_ID_TIPO_LIVRO = LIV_ID_LIVRO LEFT JOIN EDI_EDITORES ON LIV_ID_EDITOR = EDI_ID_EDITOR WHERE LIV_ID_LIVRO = @idLivro", ioConexao); 
+                        ioQuery = new SqlCommand("SELECT LIV_ID_LIVRO, LIV_ID_TIPO_LIVRO, ISNULL(LIV_ID_EDITOR, -1), LIV_NM_TITULO, ISNULL(LIV_VL_PRECO, -1), LIV_PC_ROYALTY, ISNULL(LIV_DS_RESUMO, 'vazio'), LIV_NU_EDICAO, ISNULL(EDI_NM_EDITOR,'editor não informado'), ISNULL(TIL_DS_DESCRICAO, 'categoria não informada') FROM LIV_LIVROS LEFT JOIN TIL_TIPO_LIVRO ON TIL_ID_TIPO_LIVRO = LIV_ID_TIPO_LIVRO LEFT JOIN EDI_EDITORES ON LIV_ID_EDITOR = EDI_ID_EDITOR WHERE LIV_ID_LIVRO = @idLivro", ioConexao); 
 
-                        //Criando a variável @idLivro e setando o seu valor com o ID recebido por parâmetro pela função
                         ioQuery.Parameters.Add(new SqlParameter("@idLivro", liv_id_livro));
                     }
                     else
                     {
-                        //Caso não seja passado nenhum ID, a query deve retornar todos os Livros
-                        ioQuery = new SqlCommand("SELECT LIV_ID_LIVRO, LIV_ID_TIPO_LIVRO, ISNULL(LIV_ID_EDITOR, -1), LIV_NM_TITULO, ISNULL(LIV_VL_PRECO, -1), LIV_PC_ROYALTY, ISNULL(LIV_DS_RESUMO, 'vazio'), LIV_NU_EDICAO, ISNULL(TIL_DS_DESCRICAO, 'categoria não informada'), ISNULL(EDI_NM_EDITOR,'editor não informado') FROM LIV_LIVROS LEFT JOIN TIL_TIPO_LIVRO ON TIL_ID_TIPO_LIVRO = LIV_ID_LIVRO LEFT JOIN EDI_EDITORES ON LIV_ID_EDITOR = EDI_ID_EDITOR ", ioConexao);
+                        ioQuery = new SqlCommand("SELECT LIV_ID_LIVRO, LIV_ID_TIPO_LIVRO, ISNULL(LIV_ID_EDITOR, -1), LIV_NM_TITULO, ISNULL(LIV_VL_PRECO, -1), LIV_PC_ROYALTY, ISNULL(LIV_DS_RESUMO, 'vazio'), LIV_NU_EDICAO, ISNULL(EDI_NM_EDITOR,'editor não informado'), ISNULL(TIL_DS_DESCRICAO, 'categoria não informada') FROM LIV_LIVROS LEFT JOIN TIL_TIPO_LIVRO ON TIL_ID_TIPO_LIVRO = LIV_ID_TIPO_LIVRO LEFT JOIN EDI_EDITORES ON LIV_ID_EDITOR = EDI_ID_EDITOR", ioConexao);
                     }
-                    //Criando o bloco de leitura de dados do SQL server
+
                     using (SqlDataReader loReader = ioQuery.ExecuteReader())
                     {
                         //Chamando a função de leitura antes de acessar os dados (uma vez para cada linha retornada na consulta)
