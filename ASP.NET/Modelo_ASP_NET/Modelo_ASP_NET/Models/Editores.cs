@@ -13,7 +13,7 @@ namespace Modelo_ASP_NET.Models
         public string edi_ds_email { get; set; }
         public string edi_ds_url { get; set; }
 
-        public Editores(decimal edi_id_editores, string edi_nm_editor, string edi_ds_email, string edi_ds_url)
+        public Editores(decimal edi_id_editores, string edi_nm_editor, string edi_ds_email = "Email não informado", string edi_ds_url = "Url não informada")
         {
             this.edi_id_editores = edi_id_editores;
             this.edi_nm_editor = edi_nm_editor;

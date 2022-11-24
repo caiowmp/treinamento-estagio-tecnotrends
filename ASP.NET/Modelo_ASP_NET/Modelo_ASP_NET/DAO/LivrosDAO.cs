@@ -16,6 +16,40 @@ namespace Modelo_ASP_NET.DAO
 
         SqlConnection ioConexao;
 
+        public BindingList<Livros> BuscaLivrosAutor(Autores autorRecebido)
+        {
+            BindingList<Livros> loListLivros = new BindingList<Livros>();
+
+            using (ioConexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
+            {
+                try
+                {
+                    ioConexao.Open();
+
+                    ioQuery = new SqlCommand("SELECT LIV_ID_LIVRO, LIV_ID_TIPO_LIVRO, ISNULL(LIV_ID_EDITOR, -1), LIV_NM_TITULO, ISNULL(LIV_VL_PRECO, -1), LIV_PC_ROYALTY, ISNULL(LIV_DS_RESUMO, 'vazio'), LIV_NU_EDICAO, ISNULL(EDI_NM_EDITOR,'editor não informado'), ISNULL(TIL_DS_DESCRICAO, 'categoria não informada') FROM LIV_LIVROS LEFT JOIN TIL_TIPO_LIVRO ON TIL_ID_TIPO_LIVRO = LIV_ID_TIPO_LIVRO LEFT JOIN EDI_EDITORES ON LIV_ID_EDITOR = EDI_ID_EDITOR WHERE EXISTS (SELECT * FROM AUT_AUTORES INNER JOIN LIA_LIVRO_AUTOR ON AUT_ID_AUTOR = LIA_ID_AUTOR WHERE AUT_ID_AUTOR = @idAutor)", ioConexao);
+                    ioQuery.Parameters.Add(new SqlParameter("@idAutor", autorRecebido.aut_id_autor));
+
+                    using (SqlDataReader loReader = ioQuery.ExecuteReader())
+                    {
+                        while (loReader.Read())
+                        {
+                            Livros loNovoLivro = new Livros(loReader.GetDecimal(0), loReader.GetDecimal(1), loReader.GetDecimal(2), loReader.GetString(3), loReader.GetDecimal(4),
+                                                            loReader.GetDecimal(5), loReader.GetString(6), loReader.GetInt32(7), loReader.GetString(8), loReader.GetString(9));
+
+                            loListLivros.Add(loNovoLivro);
+                        }
+
+                        loReader.Close();
+                    }
+                }
+                catch
+                {
+                    throw new Exception("Erro ao tentar buscar o(s) livro(s) do Autor");
+                }
+            }
+            return loListLivros;
+        }
+
         public BindingList<Livros> BuscaLivrosCategoria(decimal id_categoria)
         {
             BindingList<Livros> loListLivros = new BindingList<Livros>();

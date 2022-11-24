@@ -30,10 +30,36 @@ namespace Modelo_ASP_NET.Livraria
                 ViewState["ViewStateListaLivros"] = value;
             }
         }
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!this.IsPostBack)
-                this.CarregaDados();
+            if ((Session["SessionAutorSelecionado"] as Autores) != null)
+            {
+                this.CarregaDadosComAutor((Session["SessionAutorSelecionado"] as Autores));
+
+                Session["SessionAutorSelecionado"] = null;
+            }
+            else
+            {
+                if (!this.IsPostBack)
+                    this.CarregaDados();
+            }  
+        }
+
+        private void CarregaDadosComAutor(Autores autor)
+        {
+            try
+            {
+                this.ListaLivros = this.ioLivrosDAO.BuscaLivrosAutor(autor);
+
+                this.gvGerenciamentoLivros.DataSource = this.ListaLivros.OrderBy(loLivro => loLivro.liv_nm_titulo);
+
+                this.gvGerenciamentoLivros.DataBind();
+            }
+            catch
+            {
+                HttpContext.Current.Response.Write("<script>alert('Falaha ao tentar recuperar Livros do Autor.');</script>");
+            }
         }
 
         private void CarregaDados()
@@ -66,22 +92,24 @@ namespace Modelo_ASP_NET.Livraria
                 int liNuEdicaoLivro = Convert.ToInt16(this.tbxCadastroNuEdicaoLivro.Text);
                 string lsNomeEditor = this.tbxCadastroEditorLivro.Text;
                 string lsNomeCategoria = this.tbxCadastroCategoriaLivro.Text;
+                
+                TipoLivroDAO auxTipoLivroDao = new TipoLivroDAO();
 
-                decimal ldcIdTipoLivro = Convert.ToDecimal(this.tbxCadastroCategoriaLivro.Text);
-                if (ioTipoLivroDAO.BuscaTipoLivro(ldcIdTipoLivro).Count == 0)
+                decimal ldcIdCategoria = auxTipoLivroDao.BuscaTipoLivro().OrderByDescending(a => a.til_id_tipo_livro).First().til_id_tipo_livro + 1;
+                if (auxTipoLivroDao.BuscaTipoLivroPorNome(lsNomeCategoria).til_id_tipo_livro == -1)
                 {
-                    TipoLivroDAO auxTipoLivroDao = new TipoLivroDAO();
-                    auxTipoLivroDao.InsereTipoLivro(new TipoLivro(ldcIdTipoLivro, lsNomeCategoria));
+                    auxTipoLivroDao.InsereTipoLivro(new TipoLivro(ldcIdCategoria, lsNomeCategoria));
                 }
 
-                decimal ldcIdEditorLivro = Convert.ToDecimal(this.tbxCadastroEditorLivro.Text);
-                if (ioEditoresDAO.BuscaEditores(ldcIdEditorLivro).Count == 0)
+                EditoresDAO auxEditoresDao = new EditoresDAO();
+
+                decimal ldcIdEditorLivro = auxEditoresDao.BuscaEditores().OrderByDescending(a => a.edi_id_editores).First().edi_id_editores + 1;
+                if (ioEditoresDAO.BuscaEditorNome(lsNomeEditor).edi_id_editores == -1)
                 {
-                    EditoresDAO auxEditoresDao = new EditoresDAO();
                     auxEditoresDao.InsereEditor(new Editores(ldcIdEditorLivro, lsNomeEditor, "E-mail não informado", "url não informada"));
                 }
 
-                Livros loLivro = new Livros(ldcIdLivro, ldcIdTipoLivro, ldcIdEditorLivro, lsTituloLivro, ldcPrecoLivro, ldcRoyaltyLivro, lsResumoLivro, liNuEdicaoLivro,
+                Livros loLivro = new Livros(ldcIdLivro, ldcIdCategoria, ldcIdEditorLivro, lsTituloLivro, ldcPrecoLivro, ldcRoyaltyLivro, lsResumoLivro, liNuEdicaoLivro,
                                             lsNomeEditor, lsNomeCategoria);
 
                 this.ioLivrosDAO.InsereLivro(loLivro);
@@ -124,30 +152,30 @@ namespace Modelo_ASP_NET.Livraria
         {
             decimal ldcIdLivro = Convert.ToDecimal((this.gvGerenciamentoLivros.Rows[e.RowIndex].FindControl("lblEditIdLivro") as Label).Text);
 
-            decimal ldcIdTipoLivro;
+            decimal ldcIdTipoLivro = ioTipoLivroDAO.BuscaTipoLivro().OrderByDescending(a => a.til_id_tipo_livro).First().til_id_tipo_livro + 1;
             string lsNomeCategoria = (this.gvGerenciamentoLivros.Rows[e.RowIndex].FindControl("tbxEditCategoriaLivro") as TextBox).Text;
             if (ioTipoLivroDAO.BuscaTipoLivroPorNome(lsNomeCategoria).til_id_tipo_livro != -1)
             {
                 ldcIdTipoLivro = ioTipoLivroDAO.BuscaTipoLivroPorNome(lsNomeCategoria).til_id_tipo_livro;
                 if (ioTipoLivroDAO.BuscaTipoLivro(ldcIdTipoLivro).Count == 0)
-                    ldcIdTipoLivro = -1;
+                    ioTipoLivroDAO.InsereTipoLivro(new TipoLivro(ldcIdTipoLivro, lsNomeCategoria));
             }
             else
             {
-                ldcIdTipoLivro = -1;
+                ioTipoLivroDAO.InsereTipoLivro(new TipoLivro(ldcIdTipoLivro, lsNomeCategoria)); ;
             }
 
-            decimal ldcIdEditorLivro;
+            decimal ldcIdEditorLivro = ioEditoresDAO.BuscaEditores().OrderByDescending(a => a.edi_id_editores).First().edi_id_editores + 1;
             string lsNomeEditor = (this.gvGerenciamentoLivros.Rows[e.RowIndex].FindControl("tbxEditEditorLivro") as TextBox).Text;
             if (ioEditoresDAO.BuscaEditorNome(lsNomeEditor).edi_id_editores != -1)
             {
                 ldcIdEditorLivro = ioEditoresDAO.BuscaEditorNome(lsNomeEditor).edi_id_editores;
                 if (ioEditoresDAO.BuscaEditores(ldcIdEditorLivro).Count == 0)
-                    ldcIdEditorLivro = -1;
+                    ioEditoresDAO.InsereEditor(new Editores(ldcIdEditorLivro, lsNomeEditor));
             }
             else
             {
-                ldcIdEditorLivro = -1;
+                ioEditoresDAO.InsereEditor(new Editores(ldcIdEditorLivro, lsNomeEditor));
             }
             
 
@@ -206,6 +234,7 @@ namespace Modelo_ASP_NET.Livraria
 
                     this.ioLivrosDAO.RemoveLivro(loLivro);
                     this.CarregaDados();
+                    HttpContext.Current.Response.Write("<script>alert('Livro removido com sucesso!');</script>");
                 }
             }
             catch

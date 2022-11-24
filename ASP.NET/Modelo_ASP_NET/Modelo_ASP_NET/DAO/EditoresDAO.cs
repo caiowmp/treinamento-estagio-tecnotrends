@@ -15,10 +15,10 @@ namespace Modelo_ASP_NET.DAO
 
         SqlConnection ioConexao;
 
-        Editores loEditor = new Editores(-1, "vazio", "vazio", "vazio");
-
         public Editores BuscaEditorNome(string edi_nm_editor)
         {
+            Editores loEditor = new Editores(-1, "vazio", "vazio", "vazio");
+
             using (ioConexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
                 try
