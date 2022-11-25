@@ -51,13 +51,13 @@ namespace Modelo_ASP_NET.Livraria
         protected global::System.Web.UI.WebControls.Label lblCadastroCategoriaLivro;
 
         /// <summary>
-        /// tbxCadastroCategoriaLivro control.
+        /// ddlCadastroCategoriaLivro control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbxCadastroCategoriaLivro;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCadastroCategoriaLivro;
 
         /// <summary>
         /// RequiredFieldValidator2 control.
@@ -69,6 +69,33 @@ namespace Modelo_ASP_NET.Livraria
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
 
         /// <summary>
+        /// lblCadastroNomeAutorLivro control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCadastroNomeAutorLivro;
+
+        /// <summary>
+        /// ddlCadastroNomeAutorLivro control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlCadastroNomeAutorLivro;
+
+        /// <summary>
+        /// RequiredFieldValidator8 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator8;
+
+        /// <summary>
         /// lblCadastroEditorLivro control.
         /// </summary>
         /// <remarks>
@@ -78,13 +105,13 @@ namespace Modelo_ASP_NET.Livraria
         protected global::System.Web.UI.WebControls.Label lblCadastroEditorLivro;
 
         /// <summary>
-        /// tbxCadastroEditorLivro control.
+        /// ddlCadastroEditorLivro control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbxCadastroEditorLivro;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCadastroEditorLivro;
 
         /// <summary>
         /// RequiredFieldValidator3 control.

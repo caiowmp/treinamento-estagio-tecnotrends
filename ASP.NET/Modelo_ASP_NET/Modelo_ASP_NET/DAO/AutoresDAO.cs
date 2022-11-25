@@ -15,6 +15,41 @@ namespace Modelo_ASP_NET.DAO
         //Instanciando o objeto SqlConnection para abrir a conexão com o banco de dados
         SqlConnection ioConexao;
 
+        public Autores BuscaAutoresNome(string nomeAutor)
+        {
+            Autores loAutor = new Autores(-1, "vazio", "vazio", "vazio");
+
+            using (ioConexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
+            {
+                try
+                {
+                    ioConexao.Open();
+
+                    ioQuery = new SqlCommand("SELECT * FROM AUT_AUTORES WHERE AUT_NM_NOME = @nomeAutor", ioConexao);
+
+                    ioQuery.Parameters.Add(new SqlParameter("@nomeAutor", nomeAutor));
+                    
+                    using (SqlDataReader loReader = ioQuery.ExecuteReader())
+                    {
+                        while (loReader.Read())
+                        {
+                            Autores loNovoAutor = new Autores(loReader.GetDecimal(0), loReader.GetString(1), loReader.GetString(2), loReader.GetString(3));
+
+                            loAutor = loNovoAutor;
+                        }
+
+                        loReader.Close();
+                    }
+                }
+                catch
+                {
+                    throw new Exception("Erro ao tentar buscar o autor");
+                }
+            }
+            return loAutor;
+        }
+    
+
         public BindingList<Autores> BuscaAutores(decimal? aut_id_autor = null)
         {
             //Criando uma lista de autores que será retornada pela função

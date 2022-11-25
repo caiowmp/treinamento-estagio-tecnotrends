@@ -4,39 +4,43 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div class="row" style="text-align: left;">
         <h2>Cadastro de novo autor</h2>
-        <table>
-            <tr style="display: grid;">
-                <td>
+        <table >
+            <tr class="row row-cols-6">
+                <td class="col">
                     <asp:Label ID="lblCadastroNomeAutor" runat="server" Font-Size="16pt" Text="Nome: "></asp:Label>
                 </td>
-                <td>
+                <td class="col">
                     <asp:TextBox ID="tbxCadastroNomeAutor" runat="server" CssClass="form-control" Height="35px"
-                        Width="400px"></asp:TextBox>
+                        Width="400px" Style="margin: 10px"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
                         ControlToValidate="tbxCadastroNomeAutor" Style="color: red;" 
                         ErrorMessage="* Digite o nome do autor."></asp:RequiredFieldValidator>
                 </td>
-                <td>
+                <td class="col">
                     <asp:Label ID="lblCadastroSobrenomeAutor" runat="server" Font-Size="16pt" Text="Sobrenome: "></asp:Label>
                 </td>
-                <td>
+                <td class="col">
                     <asp:TextBox ID="tbxCadastroSobrenomeAutor" runat="server" CssClass="form-control" Height="35px"
-                        Width="400px"></asp:TextBox>
+                        Width="400px" Style="margin: 10px"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" 
                         ControlToValidate="tbxCadastroSobrenomeAutor" Style="color: red;" 
                         ErrorMessage="* Digite o sobrenome do autor."></asp:RequiredFieldValidator>
                 </td>
-                <td>
+                <td class="col">
                     <asp:Label ID="lblCadastroEmailAutor" runat="server" Font-Size="16pt" Text="E-mail: "></asp:Label>
                 </td>
-                <td>
+                <td class="col">
                     <asp:TextBox ID="tbxCadastroEmailAutor" runat="server" CssClass="form-control" Height="35px"
-                        Width="400px"></asp:TextBox>
+                        Width="400px" Style="margin: 10px"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" 
                         ControlToValidate="tbxCadastroEmailAutor" Style="color: red;" 
                         ErrorMessage="* Digite o E-mail do autor."></asp:RequiredFieldValidator>
                 </td>
-                <td>
+            </ tr>
+
+            <tr>
+                <td class="col"></td>
+                <td class="col">
                     <asp:Button ID="btnNovoAutor" runat="server" CssClass="btn btn-sucess" Style="margin-top: 10px"
                         Text="Salvar" OnClick="BtnNovoAutor_Click" />
                 </td>

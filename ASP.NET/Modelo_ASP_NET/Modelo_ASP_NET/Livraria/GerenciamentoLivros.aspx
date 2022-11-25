@@ -9,12 +9,12 @@
 
         <%--Tabela de cadastro de novo Livro--%>
         <table>
-            <tr style="display: grid;">
+            <tr class="row row-cols-6">
                 <%--Cadastro título Livro--%>
-                <td>
-                    <asp:Label ID="lblCadastroTituiloLivro" runat="server" Font-Size="16pt" Text="Tituilo: "></asp:Label>
+                <td class="col">
+                    <asp:Label ID="lblCadastroTituiloLivro" runat="server" Font-Size="14pt" Text="Título: "></asp:Label>
                 </td>
-                <td>
+                <td class="col">
                     <asp:TextBox ID="tbxCadastroTituiloLivro" runat="server" CssClass="form-control" Height="35px"
                         Width="400px"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
@@ -23,34 +23,45 @@
                 </td>
 
                 <%--Cadastro Categoria Livro--%>
-                <td>
-                    <asp:Label ID="lblCadastroCategoriaLivro" runat="server" Font-Size="16pt" Text="Categoria: "></asp:Label>
+                <td class="col">
+                    <asp:Label ID="lblCadastroCategoriaLivro" runat="server" Font-Size="14pt" Text="Categoria: "></asp:Label>
                 </td>
-                <td>
-                    <asp:TextBox ID="tbxCadastroCategoriaLivro" runat="server" CssClass="form-control" Height="35px"
-                        Width="400px"></asp:TextBox>
+                <td class="col">
+                    <asp:DropDownList ID="ddlCadastroCategoriaLivro" runat="server" SelectionMode="Single" Font-Size="14pt" Height="35px" Width="400px" />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" 
-                        ControlToValidate="tbxCadastroCategoriaLivro" Style="color: red;" 
-                        ErrorMessage="* Digite a categoria do livro."></asp:RequiredFieldValidator>
+                        ControlToValidate="ddlCadastroCategoriaLivro" Style="color: red;" 
+                        ErrorMessage="* Selecione a categoria do livro."></asp:RequiredFieldValidator>
                 </td>
 
-                <%--Cadastro Editor Livro--%>
-                <td>
-                    <asp:Label ID="lblCadastroEditorLivro" runat="server" Font-Size="16pt" Text="Editor: "></asp:Label>
+                <%--Cadastro Autor Livro--%>
+                <td class="col">
+                    <asp:Label ID="lblCadastroNomeAutorLivro" runat="server" Font-Size="14pt" Text="Autor: "></asp:Label>
                 </td>
-                <td>
-                    <asp:TextBox ID="tbxCadastroEditorLivro" runat="server" CssClass="form-control" Height="35px"
-                        Width="400px"></asp:TextBox>
+                <td class="col">
+                    <asp:DropDownList ID="ddlCadastroNomeAutorLivro" runat="server" SelectionMode="Single" Font-Size="14pt" Height="35px" Width="400px" />
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" 
+                        ControlToValidate="ddlCadastroNomeAutorLivro" Style="color: red;" 
+                        ErrorMessage="* Selecione o autor do livro."></asp:RequiredFieldValidator>
+                </td>
+            </tr>
+
+            <tr class="row row-cols-6">
+                <%--Cadastro Editor Livro--%>
+                <td class="col">
+                    <asp:Label ID="lblCadastroEditorLivro" runat="server" Font-Size="14pt" Text="Editor: "></asp:Label>
+                </td>
+                <td class="col">
+                    <asp:DropDownList ID="ddlCadastroEditorLivro" runat="server" SelectionMode="Single" Font-Size="14pt" Height="35px" Width="400px" />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" 
-                        ControlToValidate="tbxCadastroEditorLivro" Style="color: red;" 
-                        ErrorMessage="* Digite o editor do livro."></asp:RequiredFieldValidator>
+                        ControlToValidate="ddlCadastroEditorLivro" Style="color: red;" 
+                        ErrorMessage="* Selecione o editor do livro."></asp:RequiredFieldValidator>
                 </td>
 
                 <%--Cadastro Preço Livro--%>
-                <td>
-                    <asp:Label ID="lblCadastroPrecoLivro" runat="server" Font-Size="16pt" Text="Preço: "></asp:Label>
+                <td class="col">
+                    <asp:Label ID="lblCadastroPrecoLivro" runat="server" Font-Size="14pt" Text="Preço: "></asp:Label>
                 </td>
-                <td>
+                <td class="col">
                     <asp:TextBox ID="tbxCadastroPrecoLivro" runat="server" CssClass="form-control" Height="35px"
                         Width="400px"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" 
@@ -59,22 +70,24 @@
                 </td>
 
                 <%--Cadastro Royalty Livro--%>
-                <td>
-                    <asp:Label ID="lblCadastroRoyaltyLivro" runat="server" Font-Size="16pt" Text="Royalty: "></asp:Label>
+                <td class="col">
+                    <asp:Label ID="lblCadastroRoyaltyLivro" runat="server" Font-Size="14pt" Text="Royalty: "></asp:Label>
                 </td>
-                <td>
+                <td class="col">
                     <asp:TextBox ID="tbxCadastroRoyaltyLivro" runat="server" CssClass="form-control" Height="35px"
                         Width="400px"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" 
                         ControlToValidate="tbxCadastroRoyaltyLivro" Style="color: red;" 
                         ErrorMessage="* Digite o royalty do livro."></asp:RequiredFieldValidator>
                 </td>
+            </tr>
 
+            <tr class="row row-cols-6">
                 <%--Cadastro Resumo Livro--%>
-                <td>
-                    <asp:Label ID="lblCadastroResumoLivro" runat="server" Font-Size="16pt" Text="Resumo: "></asp:Label>
+                <td class="col">
+                    <asp:Label ID="lblCadastroResumoLivro" runat="server" Font-Size="14pt" Text="Resumo: "></asp:Label>
                 </td>
-                <td>
+                <td class="col">
                     <asp:TextBox ID="tbxCadastroResumoLivro" runat="server" CssClass="form-control" Height="35px"
                         Width="400px"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" 
@@ -83,17 +96,18 @@
                 </td>
 
                 <%--Cadastro Num Edição Livro--%>
-                <td>
-                    <asp:Label ID="lblNuEdicaoLivro" runat="server" Font-Size="16pt" Text="Numero de Edição: "></asp:Label>
+                <td class="col">
+                    <asp:Label ID="lblNuEdicaoLivro" runat="server" Font-Size="14pt" Text="Nº Edição:"></asp:Label>
                 </td>
-                <td>
+                <td class="col">
                     <asp:TextBox ID="tbxCadastroNuEdicaoLivro" runat="server" CssClass="form-control" Height="35px"
                         Width="400px"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" 
                         ControlToValidate="tbxCadastroNuEdicaoLivro" Style="color: red;" 
                         ErrorMessage="* Digite o número de edição do livro."></asp:RequiredFieldValidator>
                 </td>
-
+           
+                <td class ="col"></td>
                 <td>
                     <asp:Button ID="btnNovoLivro" runat="server" CssClass="btn btn-sucess" Style="margin-top: 10px"
                         Text="Salvar" OnClick="BtnNovoLivro_Click" />
@@ -331,12 +345,13 @@
                     
                     <ItemTemplate>
                         <asp:Button ID="btnEditarLivro" runat="server" CssClass="btn btn-success" Text="Editar"
-                            CommandName="Edit" CausesValidation="false" />
+                            CommandName="Edit" CausesValidation="false" Width="150px" />
                         <asp:Button ID="btnDeletarLivro" runat="server" CssClass="btn btn-danger" Text="Deletar"
-                            CommandName="Delete" CausesValidation="false" />
-                    
+                            CommandName="Delete" CausesValidation="false" Width="150px" />                   
                     </ItemTemplate>
+
                     <HeaderStyle HorizontalAlign="center" Width="250px" />
+                    <ItemStyle HorizontalAlign="Left" />
                 </asp:TemplateField>
             </Columns>
             

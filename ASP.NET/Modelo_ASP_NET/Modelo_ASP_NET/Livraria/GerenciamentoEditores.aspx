@@ -7,43 +7,45 @@
 
         <%--Tabela de cadastro de novo Editor--%>
         <table>
-            <tr style="display: grid;">
+            <tr class="row row-cols-6">
                 <%--Cadastro nome Editor--%>
-                <td>
+                <td class="col">
                     <asp:Label ID="lblCadastroNomeEditor" runat="server" Font-Size="16pt" Text="Nome: "></asp:Label>
                 </td>
-                <td>
+                <td class="col">
                     <asp:TextBox ID="tbxCadastroNomeEditor" runat="server" CssClass="form-control" Height="35px"
-                        Width="400px"></asp:TextBox>
+                        Width="400px" Style="margin: 10px"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
                         ControlToValidate="tbxCadastroNomeEditor" Style="color: red;" 
                         ErrorMessage="* Digite o nome do editor."></asp:RequiredFieldValidator>
                 </td>
 
                 <%--Cadastro Email Editor--%>
-                <td>
+                <td class="col">
                     <asp:Label ID="lblCadastroEmailEditor" runat="server" Font-Size="16pt" Text="E-mail: "></asp:Label>
                 </td>
-                <td>
+                <td class="col">
                     <asp:TextBox ID="tbxCadastroEmailEditor" runat="server" CssClass="form-control" Height="35px"
-                        Width="400px"></asp:TextBox>
+                        Width="400px" Style="margin: 10px"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" 
                         ControlToValidate="tbxCadastroEmailEditor" Style="color: red;" 
                         ErrorMessage="* Digite o E-mail do editor."></asp:RequiredFieldValidator>
                 </td>
 
                 <%--Cadastro Url Editor--%>
-                <td>
+                <td class="col">
                     <asp:Label ID="lblCadastroUrlEditor" runat="server" Font-Size="16pt" Text="Url: "></asp:Label>
                 </td>
-                <td>
+                <td class="col">
                     <asp:TextBox ID="tbxCadastroUrlEditor" runat="server" CssClass="form-control" Height="35px"
-                        Width="400px"></asp:TextBox>
+                        Width="400px" Style="margin: 10px"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" 
                         ControlToValidate="tbxCadastroUrlEditor" Style="color: red;" 
                         ErrorMessage="* Digite o Url do editor."></asp:RequiredFieldValidator>
                 </td>
+            </tr>
 
+            <tr>
                 <td>
                     <asp:Button ID="btnNovoEditor" runat="server" CssClass="btn btn-sucess" Style="margin-top: 10px"
                         Text="Salvar" OnClick="BtnNovoEditor_Click" />

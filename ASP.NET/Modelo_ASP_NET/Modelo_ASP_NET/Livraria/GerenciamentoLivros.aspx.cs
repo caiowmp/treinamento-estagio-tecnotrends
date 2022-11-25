@@ -15,6 +15,8 @@ namespace Modelo_ASP_NET.Livraria
         LivrosDAO ioLivrosDAO = new LivrosDAO();
         TipoLivroDAO ioTipoLivroDAO = new TipoLivroDAO();
         EditoresDAO ioEditoresDAO = new EditoresDAO();
+        LivroAutorDAO ioLivroAutorDAO = new LivroAutorDAO();
+        AutoresDAO ioAutoresDAO = new AutoresDAO();
 
         public BindingList<Livros> ListaLivros
         {
@@ -90,33 +92,35 @@ namespace Modelo_ASP_NET.Livraria
                 decimal ldcPrecoLivro = Convert.ToDecimal(this.tbxCadastroPrecoLivro.Text);
                 decimal ldcRoyaltyLivro = Convert.ToDecimal(this.tbxCadastroPrecoLivro.Text);
                 int liNuEdicaoLivro = Convert.ToInt16(this.tbxCadastroNuEdicaoLivro.Text);
-                string lsNomeEditor = this.tbxCadastroEditorLivro.Text;
-                string lsNomeCategoria = this.tbxCadastroCategoriaLivro.Text;
-                
-                TipoLivroDAO auxTipoLivroDao = new TipoLivroDAO();
+                string lsNomeEditor = this.ddlCadastroEditorLivro.Text;
+                string lsNomeCategoria = this.ddlCadastroCategoriaLivro.Text;
+                string lsNomeAutor = this.ddlCadastroNomeAutorLivro.Text;               
 
-                decimal ldcIdCategoria = auxTipoLivroDao.BuscaTipoLivro().OrderByDescending(a => a.til_id_tipo_livro).First().til_id_tipo_livro + 1;
-                if (auxTipoLivroDao.BuscaTipoLivroPorNome(lsNomeCategoria).til_id_tipo_livro == -1)
-                {
-                    auxTipoLivroDao.InsereTipoLivro(new TipoLivro(ldcIdCategoria, lsNomeCategoria));
-                }
+                decimal ldcIdCategoria = ioTipoLivroDAO.BuscaTipoLivro().OrderByDescending(a => a.til_id_tipo_livro).First().til_id_tipo_livro + 1;
+                if (ioTipoLivroDAO.BuscaTipoLivroPorNome(lsNomeCategoria).til_id_tipo_livro == -1)
+                    ioTipoLivroDAO.InsereTipoLivro(new TipoLivro(ldcIdCategoria, lsNomeCategoria));
+                else
+                    ldcIdCategoria = ioTipoLivroDAO.BuscaTipoLivroPorNome(lsNomeCategoria).til_id_tipo_livro;
 
-                EditoresDAO auxEditoresDao = new EditoresDAO();
-
-                decimal ldcIdEditorLivro = auxEditoresDao.BuscaEditores().OrderByDescending(a => a.edi_id_editores).First().edi_id_editores + 1;
+                decimal ldcIdEditorLivro = ioEditoresDAO.BuscaEditores().OrderByDescending(a => a.edi_id_editores).First().edi_id_editores + 1;
                 if (ioEditoresDAO.BuscaEditorNome(lsNomeEditor).edi_id_editores == -1)
-                {
-                    auxEditoresDao.InsereEditor(new Editores(ldcIdEditorLivro, lsNomeEditor, "E-mail não informado", "url não informada"));
-                }
+                    ioEditoresDAO.InsereEditor(new Editores(ldcIdEditorLivro, lsNomeEditor, "E-mail não informado", "url não informada"));
+                else
+                    ldcIdEditorLivro = ioEditoresDAO.BuscaEditorNome(lsNomeEditor).edi_id_editores;
 
                 Livros loLivro = new Livros(ldcIdLivro, ldcIdCategoria, ldcIdEditorLivro, lsTituloLivro, ldcPrecoLivro, ldcRoyaltyLivro, lsResumoLivro, liNuEdicaoLivro,
                                             lsNomeEditor, lsNomeCategoria);
 
-                this.ioLivrosDAO.InsereLivro(loLivro);
+                ioLivrosDAO.InsereLivro(loLivro);
 
-                LivroAutorDAO aux = new LivroAutorDAO();
+                decimal ldcIdAutorLivro = ioAutoresDAO.BuscaAutoresNome(lsNomeAutor).aut_id_autor;
+                if(ldcIdAutorLivro == -1)
+                {
+                    ldcIdAutorLivro = ioAutoresDAO.BuscaAutores().OrderByDescending(a => a.aut_id_autor).First().aut_id_autor + 1;
+                    ioAutoresDAO.InsereAutor(new Autores(ldcIdAutorLivro, lsNomeAutor, "sobrenome não informado", "email não informado"));
+                }
 
-                //aux.InsereLivroAutor(new LivroAutor(ldcIdAutor, ldcIdLivro, ldcRoyaltyLivro));
+                ioLivroAutorDAO.InsereLivroAutor(new LivroAutor(ldcIdAutorLivro, ldcIdLivro, ldcRoyaltyLivro));
 
                 this.CarregaDados();
                 HttpContext.Current.Response.Write("<script>alert('Livro cadastrado com sucesso!'); </script>");
@@ -126,8 +130,8 @@ namespace Modelo_ASP_NET.Livraria
                 HttpContext.Current.Response.Write("<script>alert('Erro no cadastro do Livro.'); </script>");
             }
 
-            this.tbxCadastroCategoriaLivro.Text = String.Empty;
-            this.tbxCadastroEditorLivro.Text = String.Empty;
+            this.ddlCadastroCategoriaLivro.Text = String.Empty;
+            this.ddlCadastroEditorLivro.Text = String.Empty;
             this.tbxCadastroNuEdicaoLivro.Text = String.Empty;
             this.tbxCadastroPrecoLivro.Text = String.Empty;
             this.tbxCadastroResumoLivro.Text = String.Empty;

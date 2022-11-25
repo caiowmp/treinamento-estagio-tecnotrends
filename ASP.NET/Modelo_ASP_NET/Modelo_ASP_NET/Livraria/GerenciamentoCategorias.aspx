@@ -4,7 +4,7 @@
 
 
     <div class="row" style="text-align: left;">
-        <h2>Cadastro de novo Livro</h2>
+        <h2>Cadastro de nova Categoria</h2>
 
         <%--Tabela de cadastro de nova Categoria--%>
         <table>
