@@ -37,7 +37,7 @@ namespace Modelo_ASP_NET.Livraria
         {
             this.ListaTipoLivro = this.ioTipoLivroDAO.BuscaTipoLivro();
 
-            this.gvGerenciamentoCategorias.DataSource = this.ListaTipoLivro.OrderBy(loTipoLivro => loTipoLivro.til_id_tipo_livro);
+            this.gvGerenciamentoCategorias.DataSource = this.ListaTipoLivro.OrderBy(loTipoLivro => loTipoLivro.til_ds_descricao);
 
             this.gvGerenciamentoCategorias.DataBind();
         }

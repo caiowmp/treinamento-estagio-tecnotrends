@@ -37,7 +37,7 @@ namespace Modelo_ASP_NET.Livraria
         {
             this.ListaEditores = this.ioEditoresDAO.BuscaEditores();
 
-            this.gvGerenciamentoEditores.DataSource = this.ListaEditores.OrderBy(loEditor => loEditor.edi_id_editores);
+            this.gvGerenciamentoEditores.DataSource = this.ListaEditores.OrderBy(loEditor => loEditor.edi_nm_editor);
 
             this.gvGerenciamentoEditores.DataBind();
         }

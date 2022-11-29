@@ -27,10 +27,8 @@
                     <asp:Label ID="lblCadastroCategoriaLivro" runat="server" Font-Size="14pt" Text="Categoria: "></asp:Label>
                 </td>
                 <td class="col">
-                    <asp:DropDownList ID="ddlCadastroCategoriaLivro" runat="server" SelectionMode="Single" Font-Size="14pt" Height="35px" Width="400px" />
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" 
-                        ControlToValidate="ddlCadastroCategoriaLivro" Style="color: red;" 
-                        ErrorMessage="* Selecione a categoria do livro."></asp:RequiredFieldValidator>
+                    <asp:DropDownList ID="ddlCadastroCategoriaLivro" runat="server" SelectionMode="Single" Font-Size="14pt" Height="35px" Width="400px" AutoPostBack="true" OnSelectedIndexChanged="ddlCadastroCategoriaLivro_SelectedIndexChanged"/>
+                    <asp:TextBox ID="tbxCadastroNomeNovaCategoria" runat="server" Visible="false" CssClass="form-control" Height="35px" Width="400px"></asp:TextBox>               
                 </td>
 
                 <%--Cadastro Autor Livro--%>
@@ -38,10 +36,8 @@
                     <asp:Label ID="lblCadastroNomeAutorLivro" runat="server" Font-Size="14pt" Text="Autor: "></asp:Label>
                 </td>
                 <td class="col">
-                    <asp:DropDownList ID="ddlCadastroNomeAutorLivro" runat="server" SelectionMode="Single" Font-Size="14pt" Height="35px" Width="400px" />
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" 
-                        ControlToValidate="ddlCadastroNomeAutorLivro" Style="color: red;" 
-                        ErrorMessage="* Selecione o autor do livro."></asp:RequiredFieldValidator>
+                    <asp:DropDownList ID="ddlCadastroNomeAutorLivro" runat="server" SelectionMode="Single" Font-Size="14pt" Height="35px" Width="400px" AutoPostBack="true" OnSelectedIndexChanged="ddlCadastroNomeAutorLivro_SelectedIndexChanged"/>
+                    <asp:TextBox ID="tbxCadastroNomeNovoAutor" runat="server" Visible="false" CssClass="form-control" Height="35px" Width="400px"></asp:TextBox>
                 </td>
             </tr>
 
@@ -51,10 +47,8 @@
                     <asp:Label ID="lblCadastroEditorLivro" runat="server" Font-Size="14pt" Text="Editor: "></asp:Label>
                 </td>
                 <td class="col">
-                    <asp:DropDownList ID="ddlCadastroEditorLivro" runat="server" SelectionMode="Single" Font-Size="14pt" Height="35px" Width="400px" />
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" 
-                        ControlToValidate="ddlCadastroEditorLivro" Style="color: red;" 
-                        ErrorMessage="* Selecione o editor do livro."></asp:RequiredFieldValidator>
+                    <asp:DropDownList ID="ddlCadastroEditorLivro" runat="server" SelectionMode="Single" Font-Size="14pt" Height="35px" Width="400px" AutoPostBack="true" OnSelectedIndexChanged="ddlCadastroEditorLivro_SelectedIndexChanged"/>
+                    <asp:TextBox ID="tbxCadastroNomeNovoEditor" runat="server" Visible="false" CssClass="form-control" Height="35px" Width="400px"></asp:TextBox>
                 </td>
 
                 <%--Cadastro Preço Livro--%>
@@ -123,7 +117,7 @@
         <asp:GridView ID="gvGerenciamentoLivros" runat="server" Width="100%" AutoGenerateColumns="False" 
             Font-Size="14px" CellPadding="4" ForeColor="#333333" GridLines="None" OnRowCancelingEdit="gvGerenciamentoLivros_RowCancelingEdit" 
             OnRowEditing="gvGerenciamentoLivros_RowEditing" OnRowUpdating="gvGerenciamentoLivros_RowUpdating" 
-            OnRowDeleting="gvGerenciamentoLivros_RowDeleting">
+            OnRowDeleting="gvGerenciamentoLivros_RowDeleting" OnRowDataBound="gvGerenciamentoLivros_RowDataBound">
 
             <Columns>
                 <%-- ID Livro--%>
@@ -211,8 +205,8 @@
                 <%-- Categoria Livro --%>
                 <asp:TemplateField>
                     <EditItemTemplate>
-                        <asp:TextBox ID="tbxEditCategoriaLivro" runat="server" CssClass="form-control" Heigh="35px"
-                            MaxLength="45" Text='<%# Eval("liv_nm_categoria") %>'></asp:TextBox>
+                        <asp:DropDownList ID="ddlEditCategoriaLivro" runat="server" CssClass="form-control" Heigh="35px"
+                            MaxLength="50" SelectionMode="Single" AutoPostBack="true" ></asp:DropDownList>
                     </EditItemTemplate>
 
                     <HeaderTemplate>
@@ -232,8 +226,8 @@
                 <%-- Editor Livro--%>
                 <asp:TemplateField>
                     <EditItemTemplate>
-                        <asp:TextBox ID="tbxEditEditorLivro" runat="server" CssClass="form-control" Heigh="35px"
-                            MaxLength="50" Text='<%# Eval("liv_nm_editor") %>'></asp:TextBox>
+                        <asp:DropDownList ID="ddlEditEditorLivro" runat="server" CssClass="form-control" Heigh="35px"
+                            MaxLength="50" SelectionMode="Single" AutoPostBack="true" ></asp:DropDownList>
                     </EditItemTemplate>
 
                     <HeaderTemplate>

@@ -60,13 +60,13 @@ namespace Modelo_ASP_NET.Livraria
         protected global::System.Web.UI.WebControls.DropDownList ddlCadastroCategoriaLivro;
 
         /// <summary>
-        /// RequiredFieldValidator2 control.
+        /// tbxCadastroNomeNovaCategoria control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
+        protected global::System.Web.UI.WebControls.TextBox tbxCadastroNomeNovaCategoria;
 
         /// <summary>
         /// lblCadastroNomeAutorLivro control.
@@ -87,13 +87,13 @@ namespace Modelo_ASP_NET.Livraria
         protected global::System.Web.UI.WebControls.DropDownList ddlCadastroNomeAutorLivro;
 
         /// <summary>
-        /// RequiredFieldValidator8 control.
+        /// tbxCadastroNomeNovoAutor control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator8;
+        protected global::System.Web.UI.WebControls.TextBox tbxCadastroNomeNovoAutor;
 
         /// <summary>
         /// lblCadastroEditorLivro control.
@@ -114,13 +114,13 @@ namespace Modelo_ASP_NET.Livraria
         protected global::System.Web.UI.WebControls.DropDownList ddlCadastroEditorLivro;
 
         /// <summary>
-        /// RequiredFieldValidator3 control.
+        /// tbxCadastroNomeNovoEditor control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator3;
+        protected global::System.Web.UI.WebControls.TextBox tbxCadastroNomeNovoEditor;
 
         /// <summary>
         /// lblCadastroPrecoLivro control.
